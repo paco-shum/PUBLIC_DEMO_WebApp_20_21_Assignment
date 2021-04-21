@@ -47,11 +47,14 @@ public class Transaction implements Serializable {
     
     @NotNull
     Float receiveCash;
+    
+    @NotNull
+    Boolean pending;
 
     public Transaction() {
     }
 
-    public Transaction(String sendUsername, String sendCurrency, Float sendCash, Float exchangeRate, String receiveUsername, String receiveCurrency, Float receiveCash) {
+    public Transaction(String sendUsername, String sendCurrency, Float sendCash, Float exchangeRate, String receiveUsername, String receiveCurrency, Float receiveCash, Boolean pending) {
         this.sendUsername = sendUsername;
         this.sendCurrency = sendCurrency;
         this.sendCash = sendCash;
@@ -59,6 +62,7 @@ public class Transaction implements Serializable {
         this.receiveUsername = receiveUsername;
         this.receiveCurrency = receiveCurrency;
         this.receiveCash = receiveCash;
+        this.pending = pending;
     }
 
     public Long getId() {
@@ -125,17 +129,26 @@ public class Transaction implements Serializable {
         this.receiveCash = receiveCash;
     }
 
+    public Boolean getPending() {
+        return pending;
+    }
+
+    public void setPending(Boolean pending) {
+        this.pending = pending;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.sendUsername);
-        hash = 41 * hash + Objects.hashCode(this.sendCurrency);
-        hash = 41 * hash + Objects.hashCode(this.sendCash);
-        hash = 41 * hash + Objects.hashCode(this.exchangeRate);
-        hash = 41 * hash + Objects.hashCode(this.receiveUsername);
-        hash = 41 * hash + Objects.hashCode(this.receiveCurrency);
-        hash = 41 * hash + Objects.hashCode(this.receiveCash);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.sendUsername);
+        hash = 59 * hash + Objects.hashCode(this.sendCurrency);
+        hash = 59 * hash + Objects.hashCode(this.sendCash);
+        hash = 59 * hash + Objects.hashCode(this.exchangeRate);
+        hash = 59 * hash + Objects.hashCode(this.receiveUsername);
+        hash = 59 * hash + Objects.hashCode(this.receiveCurrency);
+        hash = 59 * hash + Objects.hashCode(this.receiveCash);
+        hash = 59 * hash + Objects.hashCode(this.pending);
         return hash;
     }
 
@@ -175,8 +188,12 @@ public class Transaction implements Serializable {
         if (!Objects.equals(this.receiveCash, other.receiveCash)) {
             return false;
         }
+        if (!Objects.equals(this.pending, other.pending)) {
+            return false;
+        }
         return true;
     }
-    
+
+        
     
 }

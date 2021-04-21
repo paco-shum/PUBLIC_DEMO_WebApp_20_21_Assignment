@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -50,27 +51,10 @@ public class UserService {
         }
     }
     
-//    public String getCurrency() {
-//        return currency;
-//    }
-//
-//    public Float getCash() {
-//        return cash;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//    public String getUserpassword() {
-//        return userpassword;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getSurname() {
-//        return surname;
-//    }
+    public SystemUser getUser(String username) {
+        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+        SystemUser results = (SystemUser) em.createQuery(sql).getSingleResult();
+        return results;
+    }
 
 }
