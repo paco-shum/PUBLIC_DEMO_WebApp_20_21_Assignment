@@ -28,7 +28,7 @@ public class UserBean {
     String name;
     String surname;
     String currency;
-    Float cash;
+    Float balance;
 
     public UserBean() {
     }
@@ -73,12 +73,12 @@ public class UserBean {
         this.currency = currency;
     }
 
-    public Float getCash(String username) {
-        return usrSrv.getUser(username).getCash();
+    public Float getBalance(String username) {
+        return usrSrv.getUser(username).getBalance();
     }
 
-    public void setCash(Float cash) {
-        this.cash = cash;
+    public void setBalance(Float cash) {
+        this.balance = balance;
     }
  
 }

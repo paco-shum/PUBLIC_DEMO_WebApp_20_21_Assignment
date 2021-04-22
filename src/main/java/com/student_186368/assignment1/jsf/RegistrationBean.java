@@ -21,7 +21,7 @@ public class RegistrationBean {
     String name;
     String surname;
     String currency;
-    Float cash;
+    Float balance;
 
     public RegistrationBean() {
 
@@ -31,18 +31,18 @@ public class RegistrationBean {
     public String register() {
         if (null != currency)switch (currency) {
             case "GBP":
-                cash = 1000f;
+                balance = 1000f;
                 break;
             case "USD":
-                cash = 1000f * 1.40f;
+                balance = 1000f * 1.40f;
                 break;
             case "EUR":
-                cash = 1000f * 1.16f;
+                balance = 1000f * 1.16f;
                 break;
             default:
                 break;
         }
-        usrSrv.registerUser(username, userpassword, name, surname, currency, cash);
+        usrSrv.registerUser(username, userpassword, name, surname, currency, balance);
         return "index";
     }
     
@@ -62,12 +62,12 @@ public class RegistrationBean {
         this.currency = currency;
     }
 
-    public Float getCash() {
-        return cash;
+    public Float getBalance() {
+        return balance;
     }
 
-    public void setCash(Float cash) {
-        this.cash = cash;
+    public void setBalance(Float cash) {
+        this.balance = balance;
     }
 
     public String getUsername() {

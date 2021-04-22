@@ -41,7 +41,7 @@ public class SystemUser implements Serializable {
     String currency;
     
     @NotNull
-    Float cash;
+    Float balance;
 
     public SystemUser() {
     }
@@ -53,13 +53,13 @@ public class SystemUser implements Serializable {
 //        this.surname = surname;
 //    }
 
-    public SystemUser(String username, String userpassword, String name, String surname, String currency, Float cash) {
+    public SystemUser(String username, String userpassword, String name, String surname, String currency, Float balance) {
         this.username = username;
         this.userpassword = userpassword;
         this.name = name;
         this.surname = surname;
         this.currency = currency;
-        this.cash = cash;
+        this.balance = balance;
     }
 
     public Long getId() {
@@ -110,12 +110,12 @@ public class SystemUser implements Serializable {
         this.currency = Currency;
     }
 
-    public Float getCash() {
-        return cash;
+    public Float getBalance() {
+        return balance;
     }
 
-    public void setCash(Float Cash) {
-        this.cash = Cash;
+    public void setbalance(Float Cash) {
+        this.balance = balance;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class SystemUser implements Serializable {
         hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.surname);
         hash = 97 * hash + Objects.hashCode(this.currency);
-        hash = 97 * hash + Objects.hashCode(this.cash);
+        hash = 97 * hash + Objects.hashCode(this.balance);
         return hash;
     }
 
@@ -161,7 +161,7 @@ public class SystemUser implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.cash, other.cash)) {
+        if (!Objects.equals(this.balance, other.balance)) {
             return false;
         }
         return true;

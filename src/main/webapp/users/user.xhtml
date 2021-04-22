@@ -19,10 +19,12 @@
         <br/>
         <h:outputLabel value="#{userBean.getCurrency(request.getRemoteUser())}"/>
         <br/>
-        <h:outputText value="#{userBean.getCash(request.getRemoteUser())}">
+        <h:outputText value="#{userBean.getBalance(request.getRemoteUser())}">
             <f:convertNumber currencyCode="GBP" type="currency" />
         </h:outputText>
-
+        <br/>
+        <h:outputLabel value="Transaction"/>
+        <br/>
     </h:body>
 </html>
 
