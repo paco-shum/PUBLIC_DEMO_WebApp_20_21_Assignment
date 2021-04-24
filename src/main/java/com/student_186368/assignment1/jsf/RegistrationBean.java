@@ -3,6 +3,8 @@ package com.student_186368.assignment1.jsf;
 import com.student_186368.assignment1.ejb.UserService;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -15,36 +17,31 @@ public class RegistrationBean {
 
     @EJB
     UserService usrSrv;
-    
+    ExchangeRate er;
     String username;
     String userpassword;
     String name;
     String surname;
     String currency;
-    Float balance;
+    Double balance;
 
     public RegistrationBean() {
-
     }
 
     //call the injected EJB
     public String register() {
-        if (null != currency)switch (currency) {
-            case "GBP":
-                balance = 1000f;
-                break;
-            case "USD":
-                balance = 1000f * 1.40f;
-                break;
-            case "EUR":
-                balance = 1000f * 1.16f;
-                break;
-            default:
-                break;
+        //curreny exchange, change to RESTful call in the future
+        balance = er.getGBPExchange(currency, balance);
+        //check user exist
+        if (!usrSrv.checkUserExist(username)){
+            usrSrv.registerUser(username, userpassword, name, surname, currency, balance);
+            return "index";
         }
-        usrSrv.registerUser(username, userpassword, name, surname, currency, balance);
-        return "index";
+        // invalid
+        FacesContext.getCurrentInstance().addMessage("loginForm:username", new FacesMessage("Error: username exist!"));
+        return null;
     }
+    
     
     public UserService getUsrSrv() {
         return usrSrv;
@@ -62,11 +59,11 @@ public class RegistrationBean {
         this.currency = currency;
     }
 
-    public Float getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Float cash) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

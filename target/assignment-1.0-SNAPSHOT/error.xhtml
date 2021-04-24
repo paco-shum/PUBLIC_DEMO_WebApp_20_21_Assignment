@@ -6,6 +6,12 @@
         <title>Login Error</title>
     </h:head>
     <h:body>
+        <h:panelGrid id = "nav" columns = "3" border = "1" cellpadding = "10" cellspacing = "1">
+            <h:link value="Index" outcome="index"/>
+            <h:link value="User Page" outcome="user"/>
+            <h:link value="Admin Page" outcome="admin"/>
+        </h:panelGrid>
+        <br/>
         Access Denied - Wrong User Name or Password
         <br/>
         <h:link value="Back to index" outcome="index"/>

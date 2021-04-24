@@ -7,45 +7,49 @@
         <title>User Registration</title>
     </h:head>
     <h:body>
-        <h:link value="Back to index" outcome="index"/>
-        <br/><br/>
+        <h:panelGrid id = "nav" columns = "3" border = "1" cellpadding = "10" cellspacing = "1">
+            <h:link value="Index" outcome="index"/>
+            <h:link value="User Page" outcome="user"/>
+            <h:link value="Admin Page" outcome="admin"/>
+        </h:panelGrid>
+        <br/>
         
-        <h:form>
+        <h:form id = "loginForm">
             Fill in the details and press the register button.
             <br/>
             
-            <h:outputLabel for="username" value="*User name:"/>
-            <h:inputText id ="username" value="#{registrationBean.username}" title="Enter user name" required="true" requiredMessage="Mandatory Field"/>
-            &nbsp; 
-            <h:message style="color:red" for="username"/>
-            <br/>
+            <h:panelGrid id = "loginFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
+                
+                <h:outputLabel for="username" value="*User name:"/>
+                <h:inputText id ="username" value="#{registrationBean.username}" title="Enter user name" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="username" id = "username_error" />
             
-            <h:outputLabel for="userPassword" value="*Password:"/>
-            <h:inputSecret id ="userPassword" value="#{registrationBean.userpassword}" title="Enter password" label="password" required="true" requiredMessage="Mandatory Field"/>
-            &nbsp; 
-            <h:message style="color:red" for="userPassword"/>
-            <br/>
+                <h:outputLabel for="userPassword" value="*Password:"/>
+                <h:inputSecret id ="userPassword" value="#{registrationBean.userpassword}" title="Enter password" label="password" required="true" requiredMessage="Mandatory Field"/> 
+                <h:message style="color:red" for="userPassword"/>
+
+                <h:outputLabel for="name" value="*First Name: "/>
+                <h:inputText id ="name" value="#{registrationBean.name}" title="Enter name" required="true" label="name" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="name"/>
+
+                <h:outputLabel for="surname" value="*Last Name"/>
+                <h:inputText id ="surname" value="#{registrationBean.surname}" title="Enter surname" label="surname" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="surname"/>
             
-            <h:outputLabel for="name" value="*First Name: "/>
-            <h:inputText id ="name" value="#{registrationBean.name}" title="Enter name" required="true" label="name" requiredMessage="Mandatory Field"/>
-            &nbsp; 
-            <h:message style="color:red" for="name"/>
-            <br/>
+                <h:outputLabel for="currency" value="*Currency"/>
+                <h:selectOneMenu id ="currency" value="#{registrationBean.currency}" required="true" requiredMessage="Mandatory Field">
+                    <f:selectItem itemValue="GBP" itemLabel="GBP - Pound Sterling" />
+                    <f:selectItem itemValue="USD" itemLabel="USD - United States dollar" />
+                    <f:selectItem itemValue="EUR" itemLabel="EUR - Euro" />
+                </h:selectOneMenu>
+                <h:message style="color:red" for="currency"/>
+            </h:panelGrid>
             
-            <h:outputLabel for="surname" value="*Last Name"/>
-            <h:inputText id ="surname" value="#{registrationBean.surname}" title="Enter surname" label="surname" required="true"  requiredMessage="Mandatory Field"/>
-            &nbsp; 
-            <h:message style="color:red" for="surname"/>
-            <br/>
-            
-            <h:selectOneMenu value="#{registrationBean.currency}">
-                <f:selectItem itemValue="GBP" itemLabel="GBP - Pound Sterling" />
-                <f:selectItem itemValue="USD" itemLabel="USD - United States dollar" />
-                <f:selectItem itemValue="EUR" itemLabel="EUR - Euro" />
-            </h:selectOneMenu>
             <br/>
             <h:commandButton id="register" type="submit" value="Register" action="#{registrationBean.register}" title="Register User"/>
             <h:commandButton id="reset" type="reset" value="Reset Form" title="Reset Form"/>
+            
+            
         </h:form>
     </h:body>
 </html>

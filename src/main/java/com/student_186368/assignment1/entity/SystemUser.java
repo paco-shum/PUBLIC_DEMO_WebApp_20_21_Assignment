@@ -2,6 +2,7 @@ package com.student_186368.assignment1.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class SystemUser implements Serializable {
     // here on could use Bean Validation annotations to enforce specific rules - this could be alternatively implemented when validating the form in the web tier
     // for now we check only for Null values
     @NotNull
+    @Column(unique=true)
     String username;
 
     // here on could use Bean Validation annotations to enforce specific rules - this could be alternatively implemented when validating the form in the web tier
@@ -41,7 +43,7 @@ public class SystemUser implements Serializable {
     String currency;
     
     @NotNull
-    Float balance;
+    Double balance;
 
     public SystemUser() {
     }
@@ -53,7 +55,7 @@ public class SystemUser implements Serializable {
 //        this.surname = surname;
 //    }
 
-    public SystemUser(String username, String userpassword, String name, String surname, String currency, Float balance) {
+    public SystemUser(String username, String userpassword, String name, String surname, String currency, Double balance) {
         this.username = username;
         this.userpassword = userpassword;
         this.name = name;
@@ -110,11 +112,11 @@ public class SystemUser implements Serializable {
         this.currency = Currency;
     }
 
-    public Float getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setbalance(Float Cash) {
+    public void setbalance(Double balance) {
         this.balance = balance;
     }
 

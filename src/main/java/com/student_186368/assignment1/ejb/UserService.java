@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -26,7 +27,7 @@ public class UserService {
     public UserService() {
     }
 
-    public void registerUser(String username, String userpassword, String name, String surname, String currency, Float balance) {
+    public void registerUser(String username, String userpassword, String name, String surname, String currency, Double balance) {
         try {
             SystemUser sys_user;
             SystemUserGroup sys_user_group;
@@ -55,16 +56,23 @@ public class UserService {
     public SystemUser getUser(String username) {
         String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
         SystemUser results = (SystemUser) em.createQuery(sql).getSingleResult();
-        return results;
+        //delete password hash for security purpose
+        SystemUser newResults = new SystemUser(results.getUsername(), "XXXXX", results.getName(), results.getSurname(), results.getCurrency(), results.getBalance());
+        return newResults;
     }
 
     public Boolean checkUserExist(String username){
-        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
-        List<SystemUser> systemUser = em.createQuery(sql).getResultList();
-        return !systemUser.isEmpty();
+        try {
+            String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+            SystemUser systemUser = (SystemUser) em.createQuery(sql).getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            //Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
-    public Float checkUserBalance(String username){
+    public Double getUserBalance(String username){
         String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
         SystemUser results = (SystemUser) em.createQuery(sql).getSingleResult();
         return results.getBalance();
@@ -76,15 +84,43 @@ public class UserService {
         return (results.getBalance() >= payment);
     }
     
-    public void updateBalance(String username, Float cash){
+    public String getUserCurency(String username){
         String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
-        SystemUser su = (SystemUser) em.createQuery(sql).getSingleResult();
-        su.setbalance(cash);
-        em.persist(su);
-        em.flush();
+        SystemUser results = (SystemUser) em.createQuery(sql).getSingleResult();
+        return results.getCurrency();
+    }
+    public Boolean checkUserCurency(String username, String currency){
+        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+        SystemUser results = (SystemUser) em.createQuery(sql).getSingleResult();
+        return (results.getCurrency().equals(currency));
+    }
+//    public void updateBalance(String username, Double cash){
+//        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+//        SystemUser su = (SystemUser) em.createQuery(sql).getSingleResult();
+//        su.setbalance(cash);
+//        em.persist(su);
+        //em.flush();
 //        SystemUser editedSU = em.find(SystemUser.class, su.getId());
 //        em.getTransaction().begin();
 //        editedSU.setbalance(cash);
 //        em.getTransaction().commit();
+    //}
+    
+    public void addBalance(String username, Double cash){
+        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+        SystemUser su = (SystemUser) em.createQuery(sql).getSingleResult();
+        Double newBalance = su.getBalance() + cash;
+        su.setbalance(newBalance);
+        em.persist(su);
     }
+    
+    public void deductBalance(String username, Double cash){
+        String sql = "SELECT c FROM SystemUser c WHERE c.username = '"+username+"'";
+        SystemUser su = (SystemUser) em.createQuery(sql).getSingleResult();
+        Double newBalance = su.getBalance() - cash;
+        su.setbalance(newBalance);
+        em.persist(su);
+    }
+    
+    
 }

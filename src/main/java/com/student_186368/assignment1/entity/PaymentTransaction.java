@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @NamedQuery(name="findAllTransaction", query="SELECT c FROM Transaction c ")
 @Entity
-public class Transaction implements Serializable {
+public class PaymentTransaction implements Serializable {
     
     @Id
     @NotNull
@@ -34,10 +34,10 @@ public class Transaction implements Serializable {
     String sendCurrency;
     
     @NotNull
-    Float sendCash;
+    Double sendCash;
     
     @NotNull
-    Float exchangeRate;
+    Double exchangeRate;
     
     @NotNull
     String receiveUsername;
@@ -46,7 +46,7 @@ public class Transaction implements Serializable {
     String receiveCurrency;
     
     @NotNull
-    Float receiveCash;
+    Double receiveCash;
     
     @NotNull
     Boolean pending;
@@ -54,10 +54,10 @@ public class Transaction implements Serializable {
     @NotNull
     Boolean approved;
 
-    public Transaction() {
+    public PaymentTransaction() {
     }
 
-    public Transaction(String sendUsername, String sendCurrency, Float sendCash, Float exchangeRate, String receiveUsername, String receiveCurrency, Float receiveCash, Boolean pending, Boolean approved) {
+    public PaymentTransaction(String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash, Boolean pending, Boolean approved) {
         this.sendUsername = sendUsername;
         this.sendCurrency = sendCurrency;
         this.sendCash = sendCash;
@@ -93,19 +93,19 @@ public class Transaction implements Serializable {
         this.sendCurrency = sendCurrency;
     }
 
-    public Float getSendCash() {
+    public Double getSendCash() {
         return sendCash;
     }
 
-    public void setSendCash(Float sendCash) {
+    public void setSendCash(Double sendCash) {
         this.sendCash = sendCash;
     }
 
-    public Float getExchangeRate() {
+    public Double getExchangeRate() {
         return exchangeRate;
     }
 
-    public void setExchangeRate(Float exchangeRate) {
+    public void setExchangeRate(Double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 
@@ -125,11 +125,11 @@ public class Transaction implements Serializable {
         this.receiveCurrency = receiveCurrency;
     }
 
-    public Float getReceiveCash() {
+    public Double getReceiveCash() {
         return receiveCash;
     }
 
-    public void setReceiveCash(Float receiveCash) {
+    public void setReceiveCash(Double receiveCash) {
         this.receiveCash = receiveCash;
     }
 
@@ -176,7 +176,7 @@ public class Transaction implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Transaction other = (Transaction) obj;
+        final PaymentTransaction other = (PaymentTransaction) obj;
         if (!Objects.equals(this.sendUsername, other.sendUsername)) {
             return false;
         }
@@ -204,10 +204,7 @@ public class Transaction implements Serializable {
         if (!Objects.equals(this.pending, other.pending)) {
             return false;
         }
-        if (!Objects.equals(this.approved, other.approved)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.approved, other.approved);
     }
 
     

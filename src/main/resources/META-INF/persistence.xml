@@ -9,4 +9,14 @@
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="PaymentTransactionPU" transaction-type="JTA">
+    <jta-data-source>jdbc/paymentDB</jta-data-source>
+    <class>com.student_186368.assignment1.entity.Transaction</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="eclipselink.cache.shared.default" value="false"/>
+    </properties>
+  </persistence-unit>
 </persistence>

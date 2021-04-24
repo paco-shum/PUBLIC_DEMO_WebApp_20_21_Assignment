@@ -1,12 +1,15 @@
 com\student_186368\assignment1\entity\SystemUser.class
 com\student_186368\assignment1\entity\SystemUserGroup_.class
+com\student_186368\assignment1\jsf\ExchangeRate.class
 com\student_186368\assignment1\jsf\AdminBean.class
-com\student_186368\assignment1\jsf\PaymentBean.class
+com\student_186368\assignment1\jsf\CheckExchangeRateBean.class
 com\student_186368\assignment1\ejb\UserService.class
 com\student_186368\assignment1\jsf\UserBean.class
 com\student_186368\assignment1\ejb\PaymentService.class
-com\student_186368\assignment1\entity\Transaction.class
+com\student_186368\assignment1\ejb\InitSingleton.class
+com\student_186368\assignment1\jsf\MakePaymentBean.class
 com\student_186368\assignment1\jsf\RegistrationBean.class
 com\student_186368\assignment1\entity\SystemUser_.class
 com\student_186368\assignment1\jsf\LoginBean.class
 com\student_186368\assignment1\entity\SystemUserGroup.class
+com\student_186368\assignment1\entity\PaymentTransaction.class

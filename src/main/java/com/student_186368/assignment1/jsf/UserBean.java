@@ -5,11 +5,15 @@
  */
 package com.student_186368.assignment1.jsf;
 
+import com.student_186368.assignment1.ejb.PaymentService;
 import com.student_186368.assignment1.ejb.UserService;
+import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -21,6 +25,7 @@ public class UserBean {
 
     @EJB
     UserService usrSrv;
+    PaymentService ps;
     
     Long id;
     String username;
@@ -28,7 +33,7 @@ public class UserBean {
     String name;
     String surname;
     String currency;
-    Float balance;
+    Double balance;
 
     public UserBean() {
     }
@@ -73,12 +78,25 @@ public class UserBean {
         this.currency = currency;
     }
 
-    public Float getBalance(String username) {
+    public Double getBalance(String username) {
         return usrSrv.getUser(username).getBalance();
     }
 
-    public void setBalance(Float cash) {
+    public void setBalance(Double cash) {
         this.balance = balance;
     }
+    
+    public List<PaymentTransaction> getTransactions(String username) {
+        return ps.getUserTransactions(username);
+    }
  
+    public List<PaymentTransaction> getTransactionsList(String username) {
+        List<PaymentTransaction> result = getTransactions(username);
+        if (result != null){
+            return result;
+        } else {
+            result.add(new PaymentTransaction("NULL", "NULL", 0d, 0d, "NULL", "NULL", 0d, false, true));
+            return result;
+        }
+    }
 }
