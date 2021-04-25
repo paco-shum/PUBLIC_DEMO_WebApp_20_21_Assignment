@@ -29,7 +29,7 @@ import javax.persistence.PersistenceContext;
 @Singleton
 public class InitSingleton {
     
-    @PersistenceContext(unitName = "PaymentUserPU")
+    @PersistenceContext//(unitName = "PaymentUserPU")
     EntityManager em;
 
     @PostConstruct
@@ -37,7 +37,7 @@ public class InitSingleton {
         System.out.println("At startup: checking if an admin account is in the datbase");
         if (!checkUserExist("paymentadmin")){
             System.out.println("Missing admin account...create one now");
-            register("paymentadmin", "password", "admin", "admin", "admin");
+            register("admin1", "admin1", "admin", "admin", "admin");
         }else {
             System.out.println("Admin account detected...skipping");
         }
@@ -45,14 +45,14 @@ public class InitSingleton {
         System.out.println("At startup: checking if an user1 account is in the datbase");
         if (!checkUserExist("user1")){
             System.out.println("Missing user1 account...create one now");
-            register("user1", "p1", "name", "surename", "users");
+            register("user1", "p1", "Tom", "Addnerson", "users");
         }else {
             System.out.println("user1 account detected...skipping");
         }
         System.out.println("At startup: checking if an user2 account is in the datbase");
         if (!checkUserExist("user2")){
             System.out.println("Missing user2 account...create one now");
-            register("user2", "p2", "name", "surename", "users");
+            register("user2", "p2", "Jesi", "Reynolds", "users");
         }else {
             System.out.println("user2 account detected...skipping");
         }

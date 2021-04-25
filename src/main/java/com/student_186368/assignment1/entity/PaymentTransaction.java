@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author PacoShum
  */
-@NamedQuery(name="findAllTransaction", query="SELECT c FROM Transaction c ")
+@NamedQuery(name="findAllTransaction", query="SELECT c FROM PaymentTransaction c ")
 @Entity
 public class PaymentTransaction implements Serializable {
     

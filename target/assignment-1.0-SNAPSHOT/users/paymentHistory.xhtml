@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Account Overview</title>
+        <title>Transaction History</title>
     </h:head>
     <h:body>
         <h:panelGrid id = "nav" columns = "6" border = "1" cellpadding = "10" cellspacing = "1">
@@ -15,25 +15,13 @@
             <h:link value="History" outcome="paymentHistory"/>
             <h:link value="Check Exchange Rate" outcome="checkExchangeRate"/>
         </h:panelGrid>
+        
         <br/>
-        
-        
-        <h1>Welcome back: #{userBean.getName()}</h1>
-        <h4>#{userBean.getName()} #{userBean.getSurname()}</h4>
-        
-        <h:outputLabel value="Your Currency: #{userBean.getCurrency()}"/>
+        <h1>Transaction History</h1>
+        <h2>Here's your statement:</h2>
         <br/>
-        <h:outputLabel value="Current Balance: "/>
-        <h:outputText value="#{userBean.getBalance()}">
-            <f:convertNumber currencyCode="#{userBean.getCurrency()}" type="currency" />
-        </h:outputText>
-        <br/><br/>
-
-        <h2>Notification</h2>
-        <h:outputText value="You do not have pending transaction!" rendered="#{empty userBean.getPendingTransactionsList()}" />
-        <h:outputText value="You have pending transaction!" rendered="#{not empty userBean.getPendingTransactionsList()}" />
-        <br/><br/>
-        <h:dataTable value="#{userBean.getPendingTransactionsList()}" rendered="#{not empty userBean.getPendingTransactionsList()}" var="transaction">
+        <h:outputText value="You do not have any transaction!" rendered="#{empty userBean.getTransactionsList()}" />
+        <h:dataTable value="#{userBean.getTransactionsList()}" rendered="#{not empty userBean.getTransactionsList()}" var="transaction">
             <h:column>    				
                 <f:facet name="header">Sender Username</f:facet>    				
                     #{transaction.sendUsername}
@@ -73,3 +61,4 @@
         </h:dataTable>
     </h:body>
 </html>
+

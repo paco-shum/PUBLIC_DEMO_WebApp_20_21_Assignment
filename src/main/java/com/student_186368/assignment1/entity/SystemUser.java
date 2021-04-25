@@ -48,13 +48,6 @@ public class SystemUser implements Serializable {
     public SystemUser() {
     }
 
-//    public SystemUser(String username, String userpassword, String name, String surname) {
-//        this.username = username;
-//        this.userpassword = userpassword;
-//        this.name = name;
-//        this.surname = surname;
-//    }
-
     public SystemUser(String username, String userpassword, String name, String surname, String currency, Double balance) {
         this.username = username;
         this.userpassword = userpassword;

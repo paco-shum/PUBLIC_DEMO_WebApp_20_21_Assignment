@@ -4,35 +4,72 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Account Overview</title>
     </h:head>
     <h:body>
         <h:panelGrid id = "nav" columns = "6" border = "1" cellpadding = "10" cellspacing = "1">
             <h:link value="Index" outcome="index"/>
-            <h:link value="Transaction Overview" outcome="user"/>
-            <h:link value="Make a Payment" outcome="makePayment"/>
-            <h:link value="Request a Payment" outcome="requestPayment"/>
+            <h:link value="Account Overview" outcome="user"/>
+            <h:link value="Make/Request a Payment" outcome="makePayment"/>
             <h:link value="Approve a Payment" outcome="approvePayment"/>
+            <h:link value="History" outcome="paymentHistory"/>
             <h:link value="Check Exchange Rate" outcome="checkExchangeRate"/>
         </h:panelGrid>
         <br/>
-        <h:outputLabel value="#{userBean.getId(request.getRemoteUser())}"/>
-        <br/>
-        <h:outputLabel value="#{userBean.getUsername(request.getRemoteUser())}"/>
-        <br/>
-        <h:outputLabel value="#{userBean.getName(request.getRemoteUser())}"/>
-        <br/>
-        <h:outputLabel value="#{userBean.getSurname(request.getRemoteUser())}"/>
-        <br/>
-        <h:outputLabel value="#{userBean.getCurrency(request.getRemoteUser())}"/>
-        <br/>
-        <h:outputText value="#{userBean.getBalance(request.getRemoteUser())}">
-            <f:convertNumber currencyCode="GBP" type="currency" />
-        </h:outputText>
-        <br/>
-        <h:outputLabel value="Transaction"/>
-        <br/>
         
+        
+        <h1>Welcome back: #{userBean.getName()}</h1>
+        <h4>#{userBean.getName()} #{userBean.getSurname()}</h4>
+        
+        <h:outputLabel value="Your Currency: #{userBean.getCurrency()}"/>
+        <br/>
+        <h:outputLabel value="Current Balance: "/>
+        <h:outputText value="#{userBean.getBalance()}">
+            <f:convertNumber currencyCode="#{userBean.getCurrency()}" type="currency" />
+        </h:outputText>
+        <br/><br/>
+
+        <h2>Notification</h2>
+        <h:outputText value="You do not have pending transaction!" rendered="#{empty userBean.getPendingTransactionsList()}" />
+        <h:outputText value="You have pending transaction!" rendered="#{not empty userBean.getPendingTransactionsList()}" />
+        <br/><br/>
+        <h:dataTable value="#{userBean.getPendingTransactionsList()}" rendered="#{not empty userBean.getPendingTransactionsList()}" var="transaction">
+            <h:column>    				
+                <f:facet name="header">Sender Username</f:facet>    				
+                    #{transaction.sendUsername}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sender Currency</f:facet>
+                    #{transaction.sendCurrency}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sent Amount</f:facet>
+                    #{transaction.sendCash}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Exchange Rate</f:facet>    				
+                    #{transaction.exchangeRate}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Username</f:facet>    				
+                    #{transaction.receiveUsername}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Currency</f:facet>    				
+                    #{transaction.receiveCurrency}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Received</f:facet>    				
+                    #{transaction.receiveCash}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Pending Transaction</f:facet>    				
+                    #{transaction.pending}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Approved Transaction</f:facet>    				
+                    #{transaction.approved}
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
-

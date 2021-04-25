@@ -7,113 +7,13 @@ package com.student_186368.assignment1.jsf;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author PacoShum
  */
 public class ExchangeRate {
-   
-    public static Double getGBP(String currency) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return 1d;
-            case "USD":
-                return 1.39d;
-            case "EUR":
-                return 1.15d;
-            default:
-                return null;
-        }
-    }
-    
-    public static Double getUSD(String currency) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return 0.72d;
-            case "USD":
-                return 1d;
-            case "EUR":
-                return 0.83d;
-            default:
-                return null;
-        }
-    }
-    
-    public static Double getEUR(String currency) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return 0.87d;
-            case "USD":
-                return 121d;
-            case "EUR":
-                return 1d;
-            default:
-                return null;
-        }
-    }
-    
-    public static Double getGBPExchange(String currency, Double cash) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return cash;
-            case "USD":
-                return cash*1.39d;
-            case "EUR":
-                return cash*1.15d;
-            default:
-                return null;
-        }
-    }
-    
-    public static Double getUSDExchange(String currency, Double cash) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return cash*0.72d;
-            case "USD":
-                return cash;
-            case "EUR":
-                return cash*0.83d;
-            default:
-                return null;
-        }
-    }
-    
-    public static Double getEURExchange(String currency, Double cash) {
-        if (null == currency){
-            return null;
-        } else //curreny exchange, change to RESTful call in the future
-        switch (currency) {
-            case "GBP":
-                return cash*0.87d;
-            case "USD":
-                return cash*121d;
-            case "EUR":
-                return cash;
-            default:
-                return null;
-        }
-    }
-    
+
     public static Double getExchange (String fromCurrency, Double fromCash, String toCurrency){
         //Double exchangedRate = 0d;
         //DecimalFormat df = new DecimalFormat("#.##");

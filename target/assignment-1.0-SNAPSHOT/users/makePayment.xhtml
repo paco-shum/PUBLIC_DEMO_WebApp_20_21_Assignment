@@ -4,31 +4,31 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Make/ Request A Payment</title>
     </h:head>
     <h:body>
         <h:panelGrid id = "nav" columns = "6" border = "1" cellpadding = "10" cellspacing = "1">
             <h:link value="Index" outcome="index"/>
-            <h:link value="Transaction Overview" outcome="user"/>
-            <h:link value="Make a Payment" outcome="makePayment"/>
-            <h:link value="Request a Payment" outcome="requestPayment"/>
+            <h:link value="Account Overview" outcome="user"/>
+            <h:link value="Make/Request a Payment" outcome="makePayment"/>
             <h:link value="Approve a Payment" outcome="approvePayment"/>
+            <h:link value="History" outcome="paymentHistory"/>
             <h:link value="Check Exchange Rate" outcome="checkExchangeRate"/>
         </h:panelGrid>
         <br/>
         
-        Make A Payment
+        <h1>Make/ Request A Payment</h1>
         <h:form id = "paymentForm">
             Fill in the details and press the Pay button.
             <br/>
             
             <h:panelGrid id = "paymentFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
                 
-                <h:outputLabel for="senderUsername" value="Sender user name:"/>
+                <h:outputLabel for="senderUsername" value="Your user name:"/>
                 <h:outputLabel for="senderUsername" value="#{request.getRemoteUser()}"/>
                 <h:message style="color:red" for="payeeUsername" id = "senderUsername_error" />
                 
-                <h:outputLabel for="payeeUsername" value="*Payee user name:"/>
+                <h:outputLabel for="payeeUsername" value="*Payee/Payer user name:"/>
                 <h:inputText id ="payeeUsername" value="#{makePaymentBean.receiveUsername}" title="Enter payee user name" required="true" requiredMessage="Mandatory Field"/>
                 <h:message style="color:red" for="payeeUsername" id = "payeeUsername_error" />
             
@@ -52,7 +52,7 @@
             <br/>
             <h:panelGrid id = "paymentbuttonGrid" columns = "2" border = "0" cellpadding = "8" cellspacing = "1">
                 <h:commandButton id="pay" type="submit" value="Pay" action="#{makePaymentBean.toPay}" title="Pay"/>
-                <h:commandButton id="request" type="submit" value="Request" action="#{makePaymentBean.toPay}" title="Request"/>
+                <h:commandButton id="request" type="submit" value="Request" action="#{makePaymentBean.toRequest}" title="Request"/>
             </h:panelGrid>
             
         </h:form>

@@ -9,9 +9,12 @@ import com.student_186368.assignment1.ejb.PaymentService;
 import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,78 +28,101 @@ public class UserBean {
 
     @EJB
     UserService usrSrv;
+    @EJB
     PaymentService ps;
     
-    Long id;
-    String username;
-    String userpassword;
-    String name;
-    String surname;
-    String currency;
-    Double balance;
+//    Long id;
+//    String username;
+//    String name;
+//    String surname;
+//    String currency;
+//    Double balance;
+//    
+//    List<PaymentTransaction> transactionsList;
+    
 
     public UserBean() {
     }
 
-    public Long getId(String username) {
-        return usrSrv.getUser(username).getId();
+    public Long getId() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return usrSrv.getUser(sender.getUsername()).getId();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUsername() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return sender.getUsername();
     }
 
-    public String getUsername(String username) {
-        return username;
+    public String getName() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return usrSrv.getUser(sender.getUsername()).getName();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getSurname() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return usrSrv.getUser(sender.getUsername()).getSurname();
     }
 
-    public String getName(String username) {
-        return usrSrv.getUser(username).getName();
+    public String getCurrency() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return usrSrv.getUser(sender.getUsername()).getCurrency();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Double getBalance() {
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        return usrSrv.getUser(sender.getUsername()).getBalance();
     }
 
-    public String getSurname(String username) {
-        return usrSrv.getUser(username).getSurname();
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getCurrency(String username) {
-        return usrSrv.getUser(username).getCurrency();
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public Double getBalance(String username) {
-        return usrSrv.getUser(username).getBalance();
-    }
-
-    public void setBalance(Double cash) {
-        this.balance = balance;
-    }
-    
-    public List<PaymentTransaction> getTransactions(String username) {
+    public List<PaymentTransaction> getUserTransactions(String username) {
         return ps.getUserTransactions(username);
     }
  
-    public List<PaymentTransaction> getTransactionsList(String username) {
-        List<PaymentTransaction> result = getTransactions(username);
-        if (result != null){
-            return result;
-        } else {
-            result.add(new PaymentTransaction("NULL", "NULL", 0d, 0d, "NULL", "NULL", 0d, false, true));
-            return result;
+    public List<PaymentTransaction> getPendingTransactions(String username) {
+        return ps.getPendingTransactions(username);
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactions(String username) {
+        return ps.getUserPendingTransactions(username);
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactionsID(String username) {
+        return ps.getUserPendingTransactionsID(username);
+    }
+    
+    public List<PaymentTransaction> getTransactionsList() {
+        try {
+            SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+            return getUserTransactions(sender.getUsername());  
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    public List<PaymentTransaction> getPendingTransactionsList() {
+        try {
+            SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+            return getPendingTransactions(sender.getUsername());  
+        } catch (Exception e){
+            return null;
+        }
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactionsList() {
+        try {
+            SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+            return getUserPendingTransactions(sender.getUsername());  
+        } catch (Exception e){
+            return null;
+        }
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactionsListID() {
+        try {
+            SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+            return getUserPendingTransactionsID(sender.getUsername());  
+        } catch (Exception e){
+            return null;
         }
     }
 }

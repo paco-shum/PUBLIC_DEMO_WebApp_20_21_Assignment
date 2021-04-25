@@ -34,17 +34,20 @@ public class CheckExchangeRateBean {
     //need to change arg to pass Currency
     public Double getGBP(String username) {
         String currency = usrSrv.getUser(username).getCurrency();
-        return er.getGBP(currency);
+        //return er.getGBP(currency);
+        return er.getExchange(currency, 1d, "GBP");
     }
     
     public Double getUSD(String username) {
         String currency = usrSrv.getUser(username).getCurrency();
-        return er.getUSD(currency);
+        //return er.getUSD(currency);
+        return er.getExchange(currency, 1d, "USD");
     }
     
     public Double getEUR(String username) {
         String currency = usrSrv.getUser(username).getCurrency();
-        return er.getEUR(currency);
+        //return er.getEUR(currency);
+        return er.getExchange(currency, 1d, "EUR");
     }
     
 }

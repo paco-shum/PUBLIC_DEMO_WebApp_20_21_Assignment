@@ -6,10 +6,13 @@
 package com.student_186368.assignment1.ejb;
 
 import com.student_186368.assignment1.entity.PaymentTransaction;
+import com.student_186368.assignment1.jsf.ExchangeRate;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,10 +23,14 @@ import javax.persistence.PersistenceContext;
 @Stateless
 @TransactionAttribute
 public class PaymentService {
-    @PersistenceContext(unitName = "PaymentTransactionPU")
+    
+    @PersistenceContext//(unitName = "PaymentTransactionPU")
     EntityManager em;
+    
     @EJB
     UserService us;
+    
+    ExchangeRate exchangeRate;
 
     public PaymentService() {
     }
@@ -36,13 +43,26 @@ public class PaymentService {
     }
     
     public List<PaymentTransaction> getUserTransactions(String username){
-        String sql = "SELECT c FROM Transaction c WHERE c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"'";
+        String sql = "SELECT c FROM PaymentTransaction c WHERE c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"'";
+        System.out.println(sql);
         List<PaymentTransaction> transactions = em.createQuery(sql).getResultList();
         return transactions;
     }
     
     public List<PaymentTransaction> getPendingTransactions(String username){
-        String sql = "SELECT c FROM Transaction c WHERE c.pending = 'true' AND ( c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"')";
+        String sql = "SELECT c FROM PaymentTransaction c WHERE c.pending = 'true' AND ( c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"')";
+        List<PaymentTransaction> transactions = em.createQuery(sql).getResultList();
+        return transactions;
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactions(String username){
+        String sql = "SELECT c FROM PaymentTransaction c WHERE c.pending = 'true' AND c.sendUsername = '"+username+"'";
+        List<PaymentTransaction> transactions = em.createQuery(sql).getResultList();
+        return transactions;
+    }
+    
+    public List<PaymentTransaction> getUserPendingTransactionsID(String username){
+        String sql = "SELECT c.id FROM PaymentTransaction c WHERE c.pending = 'true' AND c.sendUsername = '"+username+"'";
         List<PaymentTransaction> transactions = em.createQuery(sql).getResultList();
         return transactions;
     }
@@ -55,18 +75,24 @@ public class PaymentService {
     }
     
     public void approveTransaction(Long id){
+        //System.out.println(id);
         PaymentTransaction results = em.find(PaymentTransaction.class, id);
         results.setPending(false);
         results.setApproved(true);
         //deduct money
-        //WONG METHOD CALLED
-        us.deductBalance(results.getSendUsername(), results.getSendCash());
-        us.addBalance(results.getReceiveUsername(), results.getReceiveCash());
-        em.persist(results);
-        em.flush();
+        //CHECK BALANCE       
+        if (us.checkUserBalance(results.getSendUsername(), results.getSendCash())){
+            us.deductBalance(results.getSendUsername(), results.getSendCash());
+            us.addBalance(results.getReceiveUsername(), results.getReceiveCash());
+            em.persist(results);
+            em.flush();
+        }else {
+            FacesContext.getCurrentInstance().addMessage("paymentForm:paymentAmount", new FacesMessage("Error: You have insufficient fund!"));
+        }
     }
     
     public void rejectTransaction(Long id){
+        System.out.println(id);
         PaymentTransaction results = em.find(PaymentTransaction.class, id);
         results.setPending(false);
         results.setApproved(false);
@@ -80,32 +106,19 @@ public class PaymentService {
         em.flush();
     }
     
-    public void createPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash, Boolean approved){
-        createTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, false, approved);
+    public void createPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash){
+        createTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, false, true);
         us.deductBalance(sendUsername, sendCash);
         us.addBalance(receiveUsername, receiveCash);
     }
     
-    public void requestPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash, Boolean approved){
-        createTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, true, approved);
-//        us.updateBalance(sendUsername, sendCash);
-//        us.updateBalance(receiveUsername, receiveCash);
+    public void requestPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash){
+        createTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, true, false);
     }
+    
 //    public boolean prePaymentBalanceCheck(String sendUsername, String receiveUsername, Float payment){
 //        return (us.checkUserBalance(sendUsername) >= payment);
 //    }
     
-    
 
-//    public int read(long id) {
-//        Transaction e = em.find(Transaction.class, id);
-//        return e.getRecordValue();
-//    }
-//
-//    public void writeToBalance(long id, int value) {
-//        Transaction e = em.find(Transaction.class, id);
-//        e.setRecordValue(value);
-//        em.persist(e);
-//        em.flush();
-//    }
 }

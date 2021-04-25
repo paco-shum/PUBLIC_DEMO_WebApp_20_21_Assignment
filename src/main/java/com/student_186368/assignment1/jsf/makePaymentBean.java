@@ -28,32 +28,36 @@ public class MakePaymentBean {
     @EJB
     UserService usrSrv;
     
-    ExchangeRate exchangeRate;
+    @EJB
     PaymentService ps;
+    
+    ExchangeRate exchangeRate;
+    
+    Long id;
     String sendUsername;
     String sendCurrency;
     Double sendCash;
     //Double exchangeRate;
     String receiveUsername;
     String receiveCurrency;
-    Double receiveCash;
+    //Double receiveCash;
     //Boolean pending;
     Boolean approved;
     HttpServletRequest request;
     
     //temp var
-    Double exchangedRate;
-    Double receiverWillGetCash;
+//    Double exchangedRate;
+//    Double receiverWillGetCash;
 
     public MakePaymentBean() {
     }
 
     public void toPay(){
-    //public void toPay(String senderUsername, String receiveUsername, String sendCurrency, Double sendCash, Boolean approved){
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
         //SystemUser sender = usrSrv.getUser(senderUsername);
         //Double exchangedRate = 0d;
-        
+        Double exchangedRate;
+        Double receiverWillGetCash;
         //checkboox to approve
         if (approved){
             //check payee exist
@@ -65,28 +69,25 @@ public class MakePaymentBean {
                     exchangedRate = exchangeRate.getExchange(sendCurrency, sendCash, sender.getCurrency());
                 }
                 //check sufficient fund
-                if (sender.getBalance()>= exchangedRate){
+                if (usrSrv.checkUserBalance(sender.getUsername(), exchangedRate)){
                     //MAY NEED TO MOVE TO PaymentService
                     //convert to payee currency
                     //Double receiverWillGetCash = 0d;
-                    String payeeCurrency = usrSrv.getUser(receiveUsername).getCurrency();
+                    String payeeCurrency = usrSrv.getUserCurency(receiveUsername);
                     if (payeeCurrency.equals(sendCurrency)){
                         receiverWillGetCash = sendCash;
                     } else {
                         receiverWillGetCash = exchangeRate.getExchange(sendCurrency, sendCash, payeeCurrency);
                     }
-//                    System.out.println(sender.getUsername());
-//                    System.out.println(sender.getCurrency());
-//                    System.out.println(exchangedRate);
-//                    System.out.println(exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency));
-//                    System.out.println(receiveUsername);
-//                    System.out.println(payeeCurrency);
-//                    System.out.println(receiverWillGetCash);
-//                    System.out.println(approved);
-                    ps.createPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiveCash, approved);
+                    try {
+                        ps.createPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiverWillGetCash);
+
+                    } catch (Exception e){
+                        System.out.println(e);
+                    }
                     
                 }else {
-                    FacesContext.getCurrentInstance().addMessage("paymentForm:paymentAmount", new FacesMessage("Error: Payee username doesn't exist!"));
+                    FacesContext.getCurrentInstance().addMessage("paymentForm:paymentAmount", new FacesMessage("Error: You have insufficient fund!"));
                 }
             } else {
                 FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee username doesn't exist!"));
@@ -94,24 +95,48 @@ public class MakePaymentBean {
         }else {
             FacesContext.getCurrentInstance().addMessage("paymentForm:paymentApprove", new FacesMessage("Please approve the payment first!"));
         }
-        
-        
-
         // invalid
         //return null;
     }
 
-//    public MakePaymentBean(String sendUsername, String sendCurrency, Float sendCash, Float exchangeRate, String receiveUsername, String receiveCurrency, Float receiveCash, Boolean pending, Boolean approved) {
-//        this.sendUsername = sendUsername;
-//        this.sendCurrency = sendCurrency;
-//        this.sendCash = sendCash;
-//        this.exchangeRate = exchangeRate;
-//        this.receiveUsername = receiveUsername;
-//        this.receiveCurrency = receiveCurrency;
-//        this.receiveCash = receiveCash;
-//        this.pending = pending;
-//        this.approved = approved;
-//    }
+    public void toRequest(){
+        SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        //SystemUser sender = usrSrv.getUser(senderUsername);
+        //Double exchangedRate = 0d;
+        Double exchangedRate;
+        Double receiverWillGetCash;
+        //checkboox to approve
+        if (approved){
+            //check payee exist
+            if (usrSrv.checkUserExist(receiveUsername)){
+                //currency exchange for fund check
+                if (sender.getCurrency().equals(sendCurrency)){
+                    exchangedRate = sendCash;
+                } else {
+                    exchangedRate = exchangeRate.getExchange(sendCurrency, sendCash, sender.getCurrency());
+                }
+                //convert to payee currency
+                //Double receiverWillGetCash = 0d;
+                String payeeCurrency = usrSrv.getUserCurency(receiveUsername);
+                if (payeeCurrency.equals(sendCurrency)){
+                    receiverWillGetCash = sendCash;
+                } else {
+                    receiverWillGetCash = exchangeRate.getExchange(sendCurrency, sendCash, payeeCurrency);
+                }
+                try {
+                    //ps.requestPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiverWillGetCash);
+                    ps.requestPayment(receiveUsername, payeeCurrency, receiverWillGetCash, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), sender.getUsername(), sender.getCurrency(), exchangedRate);
+                } catch (Exception e){
+                    System.out.println(e);
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee/Payer username doesn't exist!"));
+            }
+        }else {
+            FacesContext.getCurrentInstance().addMessage("paymentForm:paymentApprove", new FacesMessage("Please approve the payment first!"));
+        }
+        //return "success";
+    }
         
     public String getSendUsername() {
         return sendUsername;
@@ -137,14 +162,6 @@ public class MakePaymentBean {
         this.sendCash = sendCash;
     }
 
-//    public Double getExchangeRate() {
-//        return exchangeRate;
-//    }
-//
-//    public void setExchangeRate(Double exchangeRate) {
-//        this.exchangeRate = exchangeRate;
-//    }
-
     public String getReceiveUsername() {
         return receiveUsername;
     }
@@ -161,22 +178,6 @@ public class MakePaymentBean {
         this.receiveCurrency = receiveCurrency;
     }
 
-    public Double getReceiveCash() {
-        return receiveCash;
-    }
-
-    public void setReceiveCash(Double receiveCash) {
-        this.receiveCash = receiveCash;
-    }
-
-//    public Boolean getPending() {
-//        return pending;
-//    }
-//
-//    public void setPending(Boolean pending) {
-//        this.pending = pending;
-//    }
-
     public Boolean getApproved() {
         return approved;
     }
@@ -184,46 +185,12 @@ public class MakePaymentBean {
     public void setApproved(Boolean approved) {
         this.approved = approved;
     }
-    
-    
-//    public Double getExchange (String fromCurrency, Double fromCash, String toCurrency){
-//        //Double exchangedRate = 0d;
-//        //DecimalFormat df = new DecimalFormat("#.##");
-//        //df.setRoundingMode(RoundingMode.CEILING);
-//        BigDecimal b1 = new BigDecimal(fromCash);
-//        
-//        if (fromCurrency.equals("GBP")){
-//            if (toCurrency.equals("GBP")){
-//                return fromCash;
-//            }else if (toCurrency.equals("USD")){
-//                return b1.multiply(new BigDecimal(1.39d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else if (toCurrency.equals("EUR")){
-//                return b1.multiply(new BigDecimal(1.15d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else {
-//                return 0d;
-//            }
-//        }else if (fromCurrency.equals("USD")){
-//            if (toCurrency.equals("GBP")){
-//                return b1.multiply(new BigDecimal(0.72d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else if (toCurrency.equals("USD")){
-//                return fromCash;
-//            }else if (toCurrency.equals("EUR")){
-//                return b1.multiply(new BigDecimal(0.83d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else {
-//                return 0d;
-//            }
-//        }else if (fromCurrency.equals("EUR")){
-//            if (toCurrency.equals("GBP")){
-//                return b1.multiply(new BigDecimal(0.87d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else if (toCurrency.equals("USD")){
-//                return b1.multiply(new BigDecimal(1.21d)).setScale(2, RoundingMode.HALF_UP).doubleValue();
-//            }else if (toCurrency.equals("EUR")){
-//                return fromCash;
-//            }else {
-//                return 0d;
-//            }
-//        }else {
-//            return 0d;
-//        }
-//    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
