@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Admin Overview</title>
     </h:head>
     <h:body>
         <h:panelGrid id = "nav" columns = "6" border = "1" cellpadding = "10" cellspacing = "1">
@@ -13,10 +14,48 @@
             <h:link value="Account Registraion" outcome="adminRegistraion"/>
         </h:panelGrid>
         <br/>
-        Hello from Facelets admin
-        
-        <br/>
-        <h:link value="Back to index" outcome="index"/>
+        <h1>Welcome back: #{adminBean.getLoginName()}</h1>
+        <h2>Server Transaction History</h2>
+        <h:outputText value="You do not have any transaction!" rendered="#{empty adminBean.getAllTransactions()}" />
+        <br/><br/>
+        <h:dataTable value="#{adminBean.getAllTransactions()}" rendered="#{not empty adminBean.getAllTransactions()}" var="transaction">
+            <h:column>    				
+                <f:facet name="header">Sender Username</f:facet>    				
+                    #{transaction.sendUsername}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sender Currency</f:facet>
+                    #{transaction.sendCurrency}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sent Amount</f:facet>
+                    #{transaction.sendCash}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Exchange Rate</f:facet>    				
+                    #{transaction.exchangeRate}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Username</f:facet>    				
+                    #{transaction.receiveUsername}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Currency</f:facet>    				
+                    #{transaction.receiveCurrency}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Recipient Received</f:facet>    				
+                    #{transaction.receiveCash}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Pending Transaction</f:facet>    				
+                    #{transaction.pending}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Approved Transaction</f:facet>    				
+                    #{transaction.approved}
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
 

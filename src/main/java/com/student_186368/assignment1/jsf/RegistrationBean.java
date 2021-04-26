@@ -24,6 +24,7 @@ public class RegistrationBean {
     String surname;
     String currency;
     Double balance;
+    String userGroup;
 
     public RegistrationBean() {
     }
@@ -97,6 +98,14 @@ public class RegistrationBean {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
     }
 
     

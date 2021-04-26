@@ -52,7 +52,7 @@ public class MakePaymentBean {
     public MakePaymentBean() {
     }
 
-    public void toPay(){
+    public String toPay(){
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
         //SystemUser sender = usrSrv.getUser(senderUsername);
         //Double exchangedRate = 0d;
@@ -61,7 +61,7 @@ public class MakePaymentBean {
         //checkboox to approve
         if (approved){
             //check payee exist
-            if (usrSrv.checkUserExist(receiveUsername)){
+            if ( (usrSrv.checkUserExist(receiveUsername)) && !(sender.getUsername().equals(receiveUsername))){
                 //currency exchange for fund check
                 if (sender.getCurrency().equals(sendCurrency)){
                     exchangedRate = sendCash;
@@ -81,7 +81,7 @@ public class MakePaymentBean {
                     }
                     try {
                         ps.createPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiverWillGetCash);
-
+                        return "success";
                     } catch (Exception e){
                         System.out.println(e);
                     }
@@ -90,16 +90,16 @@ public class MakePaymentBean {
                     FacesContext.getCurrentInstance().addMessage("paymentForm:paymentAmount", new FacesMessage("Error: You have insufficient fund!"));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee username doesn't exist!"));
+                FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee username doesn't exist/ Payee username is same as sender!"));
             }
         }else {
             FacesContext.getCurrentInstance().addMessage("paymentForm:paymentApprove", new FacesMessage("Please approve the payment first!"));
         }
         // invalid
-        //return null;
+        return null;
     }
 
-    public void toRequest(){
+    public String toRequest(){
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
         //SystemUser sender = usrSrv.getUser(senderUsername);
         //Double exchangedRate = 0d;
@@ -108,7 +108,7 @@ public class MakePaymentBean {
         //checkboox to approve
         if (approved){
             //check payee exist
-            if (usrSrv.checkUserExist(receiveUsername)){
+            if ( (usrSrv.checkUserExist(receiveUsername)) && (!(sender.getUsername().equals(receiveUsername)))){
                 //currency exchange for fund check
                 if (sender.getCurrency().equals(sendCurrency)){
                     exchangedRate = sendCash;
@@ -126,16 +126,17 @@ public class MakePaymentBean {
                 try {
                     //ps.requestPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiverWillGetCash);
                     ps.requestPayment(receiveUsername, payeeCurrency, receiverWillGetCash, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), sender.getUsername(), sender.getCurrency(), exchangedRate);
+                    return "success";
                 } catch (Exception e){
                     System.out.println(e);
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee/Payer username doesn't exist!"));
+                FacesContext.getCurrentInstance().addMessage("paymentForm:payeeUsername", new FacesMessage("Error: Payee/Payer username doesn't exist!/ Payee username is same as sender!"));
             }
         }else {
             FacesContext.getCurrentInstance().addMessage("paymentForm:paymentApprove", new FacesMessage("Please approve the payment first!"));
         }
-        //return "success";
+        return null;
     }
         
     public String getSendUsername() {

@@ -33,16 +33,20 @@ public class ApprovePaymentBean {
     Boolean approved;
     String senderUsername;
     
-    public void toConfirmPay(){
+    public String toConfirmPay(){
         if (approved){
             ps.approveTransaction(Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("paymentForm:paymentID")));
+            return "success";
         }
+        return null;
     }
     
-    public void toRejectPay(){
+    public String toRejectPay(){
         if (approved){
             ps.rejectTransaction(Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("paymentForm:paymentID")));
+            return "success";
         }
+        return null;
     }
     
     public List<PaymentTransaction> getUserPendingTransactionsID(String username) {
@@ -58,14 +62,10 @@ public class ApprovePaymentBean {
         }
     }
     
-    public List<PaymentTransaction> getUserPendingTransactions(String username) {
-        return ps.getUserPendingTransactions(username);
-    }
-    
     public List<PaymentTransaction> getUserPendingTransactionsList() {
         try {
             SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-            return getUserPendingTransactions(sender.getUsername());  
+            return ps.getUserPendingTransactions(sender.getUsername());
         } catch (Exception e){
             return null;
         }

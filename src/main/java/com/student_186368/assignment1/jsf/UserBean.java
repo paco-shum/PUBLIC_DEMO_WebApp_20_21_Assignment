@@ -77,18 +77,6 @@ public class UserBean {
     public List<PaymentTransaction> getUserTransactions(String username) {
         return ps.getUserTransactions(username);
     }
- 
-    public List<PaymentTransaction> getPendingTransactions(String username) {
-        return ps.getPendingTransactions(username);
-    }
-    
-    public List<PaymentTransaction> getUserPendingTransactions(String username) {
-        return ps.getUserPendingTransactions(username);
-    }
-    
-    public List<PaymentTransaction> getUserPendingTransactionsID(String username) {
-        return ps.getUserPendingTransactionsID(username);
-    }
     
     public List<PaymentTransaction> getTransactionsList() {
         try {
@@ -102,7 +90,7 @@ public class UserBean {
     public List<PaymentTransaction> getPendingTransactionsList() {
         try {
             SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-            return getPendingTransactions(sender.getUsername());  
+            return ps.getPendingTransactions(sender.getUsername());
         } catch (Exception e){
             return null;
         }
@@ -111,7 +99,7 @@ public class UserBean {
     public List<PaymentTransaction> getUserPendingTransactionsList() {
         try {
             SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-            return getUserPendingTransactions(sender.getUsername());  
+            return ps.getUserPendingTransactions(sender.getUsername()); 
         } catch (Exception e){
             return null;
         }
@@ -120,7 +108,7 @@ public class UserBean {
     public List<PaymentTransaction> getUserPendingTransactionsListID() {
         try {
             SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-            return getUserPendingTransactionsID(sender.getUsername());  
+            return ps.getUserPendingTransactionsID(sender.getUsername());  
         } catch (Exception e){
             return null;
         }
