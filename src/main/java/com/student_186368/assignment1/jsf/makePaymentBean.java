@@ -39,25 +39,16 @@ public class MakePaymentBean {
     String sendUsername;
     String sendCurrency;
     Double sendCash;
-    //Double exchangeRate;
     String receiveUsername;
     String receiveCurrency;
-    //Double receiveCash;
-    //Boolean pending;
     Boolean approved;
     HttpServletRequest request;
     
-    //temp var
-//    Double exchangedRate;
-//    Double receiverWillGetCash;
-
     public MakePaymentBean() {
     }
 
     public String toPay(){
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-        //SystemUser sender = usrSrv.getUser(senderUsername);
-        //Double exchangedRate = 0d;
         Double exchangedRate;
         Double receiverWillGetCash;
         //checkboox to approve
@@ -72,9 +63,7 @@ public class MakePaymentBean {
                 }
                 //check sufficient fund
                 if (usrSrv.checkUserBalance(sender.getUsername(), exchangedRate)){
-                    //MAY NEED TO MOVE TO PaymentService
                     //convert to payee currency
-                    //Double receiverWillGetCash = 0d;
                     String payeeCurrency = usrSrv.getUserCurency(receiveUsername);
                     if (payeeCurrency.equals(sendCurrency)){
                         receiverWillGetCash = sendCash;
@@ -103,8 +92,6 @@ public class MakePaymentBean {
 
     public String toRequest(){
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
-        //SystemUser sender = usrSrv.getUser(senderUsername);
-        //Double exchangedRate = 0d;
         Double exchangedRate;
         Double receiverWillGetCash;
         //checkboox to approve
@@ -118,7 +105,6 @@ public class MakePaymentBean {
                     exchangedRate = exchangeRate.getExchange(sendCurrency, sendCash, sender.getCurrency());
                 }
                 //convert to payee currency
-                //Double receiverWillGetCash = 0d;
                 String payeeCurrency = usrSrv.getUserCurency(receiveUsername);
                 if (payeeCurrency.equals(sendCurrency)){
                     receiverWillGetCash = sendCash;
@@ -126,7 +112,6 @@ public class MakePaymentBean {
                     receiverWillGetCash = exchangeRate.getExchange(sendCurrency, sendCash, payeeCurrency);
                 }
                 try {
-                    //ps.requestPayment(sender.getUsername(), sender.getCurrency(), exchangedRate, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), receiveUsername, payeeCurrency, receiverWillGetCash);
                     ps.requestPayment(receiveUsername, payeeCurrency, receiverWillGetCash, exchangeRate.getExchange(sender.getCurrency(), 1d, payeeCurrency), sender.getUsername(), sender.getCurrency(), exchangedRate);
                     return "success";
                 } catch (Exception e){

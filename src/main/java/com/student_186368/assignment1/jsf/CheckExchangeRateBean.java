@@ -7,7 +7,6 @@ package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.ExchangeRate;
 import com.student_186368.assignment1.ejb.UserService;
-import com.student_186368.assignment1.entity.SystemUser;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;

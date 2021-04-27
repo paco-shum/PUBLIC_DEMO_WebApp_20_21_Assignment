@@ -31,15 +31,6 @@ public class UserBean {
     @EJB
     PaymentService ps;
     
-//    Long id;
-//    String username;
-//    String name;
-//    String surname;
-//    String currency;
-//    Double balance;
-//    
-//    List<PaymentTransaction> transactionsList;
-    
 
     public UserBean() {
     }

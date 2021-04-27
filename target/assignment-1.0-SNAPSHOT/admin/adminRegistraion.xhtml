@@ -7,11 +7,14 @@
         <title>New user registraion</title>
     </h:head>
     <h:body>
-        <h:panelGrid id = "nav" columns = "6" border = "1" cellpadding = "10" cellspacing = "1">
+        <h:panelGrid id = "nav" columns = "5" border = "1" cellpadding = "10" cellspacing = "1">
             <h:link value="Index" outcome="index"/>
             <h:link value="Admin Overview" outcome="admin"/>
             <h:link value="Manage Users" outcome="adminManageUser"/>
             <h:link value="Account Registraion" outcome="adminRegistraion"/>
+            <h:form>
+                <h:commandButton value="Logout" action="#{loginBean.logout()}"/>
+            </h:form>
         </h:panelGrid>
         <br/>
         <h2>New user registraion</h2>

@@ -5,11 +5,8 @@
  */
 package com.student_186368.assignment1.restful;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -17,11 +14,9 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 
 // The Singleton annotaion denotes that there will be a single object of the RSEmployee class - don't change that
 @Singleton
@@ -50,9 +45,7 @@ public class RSIndex {
     @Path("/")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getIndex() {
-        URI uri;
         try {
-            int port = 8181;
             //URI tempuri = new URI("/186368/faces");
             URI tempuri = new URI("https://localhost:8181/186368/faces/index.xhtml");
             //uri = new URI(tempuri.getScheme(), tempuri.getUserInfo(), tempuri.getHost(), 8181, tempuri.getPath(), tempuri.getQuery(), tempuri.getFragment());

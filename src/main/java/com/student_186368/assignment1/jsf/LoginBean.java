@@ -12,15 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class LoginBean implements Serializable {
 
-    public void logout() {
+    public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             //this method will disassociate the principal from the session (effectively logging him/her out)
             request.logout();
-            context.addMessage(null, new FacesMessage("User is logged out"));
+            //context.addMessage(null, new FacesMessage("User is logged out"));
+            return "success_logout";
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Logout failed."));
         }
+        return null;
     }
 }

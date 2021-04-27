@@ -5,18 +5,10 @@
  */
 package com.student_186368.assignment1.restful;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.webapp.FacesServlet;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -34,17 +26,5 @@ public class RSApp extends Application {
         return classes;
     }
     
-//    @GET
-//    @Path("/")
-//    public Response getIndex() {
-//        URI uri;
-//        try {
-//            uri = new URI("/faces");
-//            return Response.seeOther(uri).build();
-//        } catch (URISyntaxException ex) {
-//            Logger.getLogger(RSExchange.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return Response.status(Response.Status.NOT_FOUND).build();
-//    }
 }
 

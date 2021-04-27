@@ -33,8 +33,8 @@ public class RegistrationBean {
 
     //call the injected EJB
     public String register() {
-        //curreny exchange, change to RESTful call in the future
-        //balance = er.getExchange(currency, balance);
+        //curreny exchange
+        //er.getExchange(currency, balance);
         //check user exist
         if (!usrSrv.checkUserExist(username)){
             usrSrv.registerUser(username, userpassword, name, surname, currency, er.getExchange("GBP", 1000d, currency));
