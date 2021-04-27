@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 // the XmlRootElement annotation is required if you want to be able to send XML representations of Employee objects
 @XmlRootElement(name = "conversion")

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 @NamedQuery(name="findAllTransaction", query="SELECT c FROM PaymentTransaction c ")
 @Entity

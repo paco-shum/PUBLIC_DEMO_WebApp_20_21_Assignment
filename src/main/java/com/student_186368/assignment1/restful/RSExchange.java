@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 /*** Annotate the class so that it exports Employee resources under the relative path /employee ***/
 @Path("/conversion")

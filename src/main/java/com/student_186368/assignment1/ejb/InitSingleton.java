@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 /*This EJB will be instantiated only once when the applciation is deployed - @Startup and @Singleton respectively*/
 @Startup

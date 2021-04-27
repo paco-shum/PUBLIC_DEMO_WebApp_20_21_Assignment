@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author parisis
+ * @author 186368
  */
 @NamedQuery(name="findAllUser", query="SELECT c FROM SystemUser c ")
 @Entity

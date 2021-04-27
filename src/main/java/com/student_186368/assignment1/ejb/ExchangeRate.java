@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 @Stateless
 public class ExchangeRate {

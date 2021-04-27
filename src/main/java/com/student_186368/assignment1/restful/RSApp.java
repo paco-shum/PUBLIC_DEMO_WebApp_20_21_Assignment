@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 @ApplicationPath("/")
 public class RSApp extends Application {

@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author parisis
+ * @author 186368
  */
 @Stateless
 public class UserService {

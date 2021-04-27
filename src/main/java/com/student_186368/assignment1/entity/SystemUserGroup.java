@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
 
 /**
  *
- * @author gp225
+ * @author 186368
  */
 @NamedQuery(name="findAllUserGroup", query="SELECT c FROM SystemUserGroup c ")
 @Entity

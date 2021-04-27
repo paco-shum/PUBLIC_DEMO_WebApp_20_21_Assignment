@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Named
 @RequestScoped
+/**
+ *
+ * @author 186368
+ */
 public class LoginBean implements Serializable {
 
     public String logout() {
