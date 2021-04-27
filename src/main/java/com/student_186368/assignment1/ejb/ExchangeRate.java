@@ -3,18 +3,52 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.student_186368.assignment1.jsf;
+package com.student_186368.assignment1.ejb;
 
+import com.student_186368.assignment1.restful.Exchange;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import javax.ejb.Stateless;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author PacoShum
  */
+@Stateless
 public class ExchangeRate {
 
-    public static Double getExchange (String fromCurrency, Double fromCash, String toCurrency){
+    String url = "http://localhost:10000/186368/conversion";
+    String fromCurrency;
+    String toCurrency;
+    Double fromCash;
+
+    public Double getExchange (String fromCurrency, Double fromCash, String toCurrency){
+        Client client = ClientBuilder.newClient();
+        Double exchangedAmt = null;
+        String newURL = (url + "/" + fromCurrency + "/" + toCurrency + "/" + fromCash);
+        try {
+            Exchange ex = client.target(newURL)
+            .request(MediaType.APPLICATION_JSON)
+            .get(Exchange.class);
+            exchangedAmt = ex.getExchangedAmount();
+        }catch (Exception e){
+            System.out.println("Access to RESTful failed, fallback to backup");
+            System.out.println(newURL);
+            System.out.println(e);
+        }
+
+        if (exchangedAmt == null){
+            return getExchangeBackup(fromCurrency, fromCash, toCurrency);
+        }else {
+            return exchangedAmt;
+        }
+    } 
+    
+    //legacy method in case rest-api not implmented or working
+    public Double getExchangeBackup (String fromCurrency, Double fromCash, String toCurrency){
         //Double exchangedRate = 0d;
         //DecimalFormat df = new DecimalFormat("#.##");
         //df.setRoundingMode(RoundingMode.CEILING);

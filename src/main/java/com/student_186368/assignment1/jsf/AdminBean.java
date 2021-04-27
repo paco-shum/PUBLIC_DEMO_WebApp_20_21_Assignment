@@ -5,6 +5,7 @@
  */
 package com.student_186368.assignment1.jsf;
 
+import com.student_186368.assignment1.ejb.ExchangeRate;
 import com.student_186368.assignment1.ejb.PaymentService;
 import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
@@ -30,6 +31,7 @@ public class AdminBean {
     UserService usrSrv;
     @EJB
     PaymentService ps;
+    @EJB
     ExchangeRate er;
     String username;
     String userpassword;
@@ -59,7 +61,7 @@ public class AdminBean {
         //balance = er.getExchange(currency, balance);
         //check user exist
         if (!usrSrv.checkUserExist(username)){
-            usrSrv.registerUser(username, userpassword, name, surname, currency, er.getExchange("GBP", balance, currency), userGroup);
+            usrSrv.registerUser(username, userpassword, name, surname, currency, balance, userGroup);
             return "success";
         }
         // invalid
@@ -68,11 +70,24 @@ public class AdminBean {
     }
 
     public String deleteUser(){
-        if (toConfirm){
+        Long adm_id  = usrSrv.getUsersID(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
+        Long usr_id = Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("usersForm:userID"));
+
+        if (!(adm_id == usr_id)){
+            System.out.println(adm_id);
+            System.out.println(usr_id);
+            if (toConfirm){
             usrSrv.deleteUser(Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("usersForm:userID")));
             return "success";
+            } else {
+                FacesContext.getCurrentInstance().addMessage("usersForm:deleteApprove", new FacesMessage("Error: Please check the above details are correct."));
+                return null;
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage("usersForm:userID", new FacesMessage("Error: username is same as curent user!"));
+            return null;
         }
-        return null;
+        //return null;
     }
     public List<SystemUser> getUsersList(){
         try {

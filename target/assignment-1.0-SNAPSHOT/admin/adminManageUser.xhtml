@@ -20,15 +20,15 @@
             Fill in the details and press the Pay button.
             <br/>
             
-            <h:panelGrid id = "paymentFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
+            <h:panelGrid id = "usersFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
                 
                 <h:outputLabel for="senderUsername" value="Your user name:"/>
                 <h:outputLabel for="senderUsername" value="#{request.getRemoteUser()}"/>
                 <h:message style="color:red" for="payeeUsername" id = "senderUsername_error" />
                 
-                <h:outputLabel for="userID" value="*Payment ID:"/>
+                <h:outputLabel for="userID" value="*User ID:"/>
                 <h:outputText value="You do not have pending transaction!" rendered="#{empty adminBean.getUsersIDList()}" />
-                <h:selectOneMenu id ="userID" value="paymentID" rendered="#{not empty adminBean.getUsersIDList()}" title="Select a payment ID that you wish to proceed" required="true" requiredMessage="Mandatory Field">
+                <h:selectOneMenu id ="userID" value="userID" rendered="#{not empty adminBean.getUsersIDList()}" title="Select a payment ID that you wish to proceed" required="true" requiredMessage="Mandatory Field">
    			<f:selectItems id ="userIDselect" value="#{adminBean.getUsersIDList()}" />
    		</h:selectOneMenu>
                 <h:message style="color:red" for="userID" id = "userID_error" />
@@ -40,15 +40,14 @@
             
             <br/>
             <h:panelGrid id = "paymentbuttonGrid" columns = "2" border = "0" cellpadding = "8" cellspacing = "1">
-                <h:commandButton id="pay" type="submit" value="Pay" action="#{adminBean.deleteUser()}" title="Pay"/>
+                <h:commandButton id="delete" type="submit" value="Delete" action="#{adminBean.deleteUser()}" title="Delete"/>
             </h:panelGrid>
             
         </h:form>
         
-        
+        <h2>Users list:</h2>
         <h:outputText value="Something is wrong, there are no users!" rendered="#{empty adminBean.getUsersList()}" />
-        <h:outputText value="You have pending transaction!" rendered="#{not empty adminBean.getUsersList()}" />
-        <br/><br/>
+
         <h:dataTable value="#{adminBean.getUsersList()}" rendered="#{not empty adminBean.getUsersList()}" var="systemUser">
             <h:column>    				
                 <f:facet name="header">User ID</f:facet>    				

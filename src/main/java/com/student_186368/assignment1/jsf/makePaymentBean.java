@@ -5,6 +5,7 @@
  */
 package com.student_186368.assignment1.jsf;
 
+import com.student_186368.assignment1.ejb.ExchangeRate;
 import com.student_186368.assignment1.ejb.PaymentService;
 import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.SystemUser;
@@ -31,6 +32,7 @@ public class MakePaymentBean {
     @EJB
     PaymentService ps;
     
+    @EJB
     ExchangeRate exchangeRate;
     
     Long id;

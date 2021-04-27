@@ -6,7 +6,6 @@
 package com.student_186368.assignment1.ejb;
 
 import com.student_186368.assignment1.entity.PaymentTransaction;
-import com.student_186368.assignment1.jsf.ExchangeRate;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -37,14 +36,11 @@ public class PaymentService {
 
     public List<PaymentTransaction> getAllTransactions(){
         List<PaymentTransaction> transactions = em.createNamedQuery("findAllTransaction").getResultList();
-        //String sql = "SELECT c FROM Transaction c WHERE c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"'";
-        //List<Transaction> transactions = em.createQuery(sql).getResultList();
         return transactions;
     }
     
     public List<PaymentTransaction> getUserTransactions(String username){
         String sql = "SELECT c FROM PaymentTransaction c WHERE c.sendUsername = '"+username+"' OR c.receiveUsername = '"+username+"'";
-        System.out.println(sql);
         List<PaymentTransaction> transactions = em.createQuery(sql).getResultList();
         return transactions;
     }
@@ -69,13 +65,10 @@ public class PaymentService {
     
     public PaymentTransaction getTransaction(Long id){
         PaymentTransaction results = em.find(PaymentTransaction.class, id);
-//        String sql = "SELECT c FROM Transaction c WHERE c.id = "+id;
-//        Transaction results = (Transaction) em.createQuery(sql).getSingleResult();
         return results;
     }
     
     public void approveTransaction(Long id){
-        //System.out.println(id);
         PaymentTransaction results = em.find(PaymentTransaction.class, id);
         results.setPending(false);
         results.setApproved(true);
@@ -92,7 +85,6 @@ public class PaymentService {
     }
     
     public void rejectTransaction(Long id){
-        System.out.println(id);
         PaymentTransaction results = em.find(PaymentTransaction.class, id);
         results.setPending(false);
         results.setApproved(false);
@@ -100,7 +92,7 @@ public class PaymentService {
         em.flush();
     }
     
-    public void createTransaction (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash, Boolean pending, Boolean approved){
+    private void createTransaction (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash, Boolean pending, Boolean approved){
         PaymentTransaction newTransaction = new PaymentTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, pending, approved);
         em.persist(newTransaction);
         em.flush();
@@ -115,10 +107,5 @@ public class PaymentService {
     public void requestPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash){
         createTransaction(sendUsername, sendCurrency, sendCash, exchangeRate, receiveUsername, receiveCurrency, receiveCash, true, false);
     }
-    
-//    public boolean prePaymentBalanceCheck(String sendUsername, String receiveUsername, Float payment){
-//        return (us.checkUserBalance(sendUsername) >= payment);
-//    }
-    
 
 }

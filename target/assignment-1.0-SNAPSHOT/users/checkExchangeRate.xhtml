@@ -17,23 +17,23 @@
         <br/>
         
         <h1>Today's exchange rate:</h1>
-        <h:outputLabel value="Your currency: #{checkExchangeRateBean.getCurrency(request.getRemoteUser())}"/>
+        <h:outputLabel value="Your currency: #{checkExchangeRateBean.getCurrency()}"/>
         <br/><br/>
         <h:panelGrid id = "nav" columns = "5"  cellpadding = "10" cellspacing = "1">
             <h:outputLabel value="1"/>
-            <h:outputLabel value="#{checkExchangeRateBean.getCurrency(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
             <h:outputLabel value="="/>
-            <h:outputLabel value="#{checkExchangeRateBean.getGBP(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getGBP()}"/>
             <h:outputLabel value="GBP"/>
             <h:outputLabel value="1"/>
-            <h:outputLabel value="#{checkExchangeRateBean.getCurrency(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
             <h:outputLabel value="="/>
-            <h:outputLabel value="#{checkExchangeRateBean.getUSD(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getUSD()}"/>
             <h:outputLabel value="USD"/>
             <h:outputLabel value="1"/>
-            <h:outputLabel value="#{checkExchangeRateBean.getCurrency(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
             <h:outputLabel value="="/>
-            <h:outputLabel value="#{checkExchangeRateBean.getEUR(request.getRemoteUser())}"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getEUR()}"/>
             <h:outputLabel value="EUR"/>
         </h:panelGrid>
     </h:body>

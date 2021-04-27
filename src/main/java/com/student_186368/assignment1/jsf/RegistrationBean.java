@@ -1,5 +1,6 @@
 package com.student_186368.assignment1.jsf;
 
+import com.student_186368.assignment1.ejb.ExchangeRate;
 import com.student_186368.assignment1.ejb.UserService;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -17,6 +18,7 @@ public class RegistrationBean {
 
     @EJB
     UserService usrSrv;
+    @EJB
     ExchangeRate er;
     String username;
     String userpassword;

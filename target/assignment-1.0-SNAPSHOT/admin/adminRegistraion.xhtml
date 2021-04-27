@@ -22,11 +22,15 @@
             <h:panelGrid id = "loginFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
                 
                 <h:outputLabel for="username" value="*User name:"/>
-                <h:inputText id ="username" value="#{adminBean.username}" title="Enter user name" required="true" requiredMessage="Mandatory Field"/>
+                <h:inputText id ="username" value="#{adminBean.username}" title="Enter user name (Between 5-15 characters)" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="15" />
+                </h:inputText>
                 <h:message style="color:red" for="username" id = "username_error" />
             
                 <h:outputLabel for="userPassword" value="*Password:"/>
-                <h:inputSecret id ="userPassword" value="#{adminBean.userpassword}" title="Enter password" label="password" required="true" requiredMessage="Mandatory Field"/> 
+                <h:inputSecret id ="userPassword" value="#{adminBean.userpassword}" title="Enter password (Between 5-20 characters)" label="password" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="20" />
+                </h:inputSecret>
                 <h:message style="color:red" for="userPassword"/>
 
                 <h:outputLabel for="name" value="*First Name: "/>

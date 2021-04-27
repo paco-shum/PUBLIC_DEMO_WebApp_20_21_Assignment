@@ -48,6 +48,7 @@ public class UserService {
 
             em.persist(sys_user);
             em.persist(sys_user_group);
+            em.flush();
             
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,6 +74,7 @@ public class UserService {
 
             em.persist(sys_user);
             em.persist(sys_user_group);
+            em.flush();
             
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,6 +84,7 @@ public class UserService {
     public void deleteUser(Long userID){
         SystemUser user = em.find(SystemUser.class, userID);
         em.remove(user);
+        em.flush();
     }
     
     ///should replace with miltple getter.
@@ -110,6 +113,11 @@ public class UserService {
         String sql = "SELECT c.id FROM SystemUser c";
         List<SystemUser> users = em.createQuery(sql).getResultList();
         return users;
+    }
+    public Long getUsersID(String username){
+        String sql = "SELECT c.id FROM SystemUser c WHERE c.username = '"+username+"'";
+        Long usr_id = (Long) em.createQuery(sql).getSingleResult();
+        return usr_id;
     }
     
     public Boolean checkUserExist(String username){
