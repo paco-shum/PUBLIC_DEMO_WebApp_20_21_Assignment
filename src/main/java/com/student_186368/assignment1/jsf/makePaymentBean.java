@@ -11,6 +11,7 @@ import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.SystemUser;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -20,10 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author PacoShum
+ * @author 186368
  */
 @Named
 @RequestScoped
+@DeclareRoles("users")
 public class MakePaymentBean {
     
     @EJB
@@ -62,7 +64,7 @@ public class MakePaymentBean {
                     exchangedRate = exchangeRate.getExchange(sendCurrency, sendCash, sender.getCurrency());
                 }
                 //check sufficient fund
-                if (usrSrv.checkUserBalance(sender.getUsername(), exchangedRate)){
+                if (ps.checkUserBalance(sender.getUsername(), exchangedRate)){
                     //convert to payee currency
                     String payeeCurrency = usrSrv.getUserCurency(receiveUsername);
                     if (payeeCurrency.equals(sendCurrency)){

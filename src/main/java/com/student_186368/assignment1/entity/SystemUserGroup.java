@@ -1,5 +1,6 @@
 package com.student_186368.assignment1.entity;
 
+//import com.student_186368.assignment1.dto.SystemUserDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -33,6 +34,34 @@ public class SystemUserGroup implements Serializable {
         this.groupname = groupName;
     }
 
+//    // Method to get Transfer Object for Project data
+//    public SystemUserDTO getSystemUserGPDTO() {
+//      return createSystemUserDTO();
+//    }
+//     
+//    // method to create a new Transfer Object and 
+//    // copy data from entity bean into the value 
+//    // object
+//    private SystemUserDTO createSystemUserDTO(){
+//        SystemUserDTO dto = new SystemUserDTO();
+//        dto.id = id;
+//        dto.username = username;
+//        dto.groupname = groupname;
+//        return dto;
+//    }
+//    
+//    // method to set entity values with a Transfer Object
+//    public void setSystemUserGPDTO(SystemUserDTO updatedDTO) {
+//        mergeSystemUserDTO(updatedDTO);
+//    }
+//
+//    // method to merge values from the Transfer Object into
+//    // the entity bean attributes
+//    private void mergeSystemUserDTO(SystemUserDTO updatedDTO) {
+//        this.id = updatedDTO.id;
+//        this.username = updatedDTO.username;
+//        this.groupname = updatedDTO.groupname;
+//    }
     public Long getId() {
         return id;
     }

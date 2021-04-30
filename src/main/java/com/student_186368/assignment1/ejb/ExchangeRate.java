@@ -25,6 +25,7 @@ public class ExchangeRate {
     String toCurrency;
     Double fromCash;
 
+    //get exchange rate or get amount of exchanged money by given currency
     public Double getExchange (String fromCurrency, Double fromCash, String toCurrency){
         Client client = ClientBuilder.newClient();
         Double exchangedAmt = null;
@@ -47,7 +48,7 @@ public class ExchangeRate {
         }
     } 
     
-    //legacy method in case rest-api not implmented or working
+    //legacy method in case rest-api not working NOTE in real world, it should return error to user showing service is offline
     public Double getExchangeBackup (String fromCurrency, Double fromCash, String toCurrency){
         //Double exchangedRate = 0d;
         //DecimalFormat df = new DecimalFormat("#.##");

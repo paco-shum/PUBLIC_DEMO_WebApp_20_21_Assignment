@@ -27,7 +27,9 @@
                 <h:message style="color:red" for="username" id = "username_error" />
             
                 <h:outputLabel for="userPassword" value="*Password:"/>
-                <h:inputSecret id ="userPassword" value="#{registrationBean.userpassword}" title="Enter password (Between 5-20 characters)" label="password" required="true" requiredMessage="Mandatory Field"/> 
+                <h:inputSecret id ="userPassword" value="#{registrationBean.userpassword}" title="Enter password (Between 5-20 characters)" label="password" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="20" />
+                </h:inputSecret> 
                 <h:message style="color:red" for="userPassword"/>
 
                 <h:outputLabel for="name" value="*First Name: "/>

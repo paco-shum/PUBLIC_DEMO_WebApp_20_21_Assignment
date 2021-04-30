@@ -1,5 +1,6 @@
 package com.student_186368.assignment1.entity;
 
+//import com.student_186368.assignment1.dto.SystemUserDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -57,6 +58,44 @@ public class SystemUser implements Serializable {
         this.balance = balance;
     }
 
+//    // Method to get Transfer Object for Project data
+//    public SystemUserDTO getSystemUserDTO() {
+//      return createSystemUserDTO();
+//    }
+//     
+//    // method to create a new Transfer Object and 
+//    // copy data from entity bean into the value 
+//    // object
+//    private SystemUserDTO createSystemUserDTO(){
+//        SystemUserDTO dto = new SystemUserDTO();
+//        dto.id = id;
+//        dto.username = username;
+//        dto.name = name;
+//        dto.surname = surname;
+//        dto.currency = currency;
+//        dto.balance = balance;
+//        return dto;
+//    }
+//    
+//    // method to set entity values with a Transfer Object
+//    public void setSystemUserDTO(SystemUserDTO updatedDTO) {
+//        mergeSystemUserDTO(updatedDTO);
+//    }
+//
+//    // method to merge values from the Transfer Object into
+//    // the entity bean attributes
+//    private void mergeSystemUserDTO(SystemUserDTO updatedDTO) {
+//        this.id = updatedDTO.id;
+//        this.username = updatedDTO.username;
+//        if (updatedDTO.userpassword != null && !updatedDTO.userpassword.trim().isEmpty()){
+//            this.userpassword = updatedDTO.userpassword;
+//        }
+//        this.name = updatedDTO.name;
+//        this.surname = updatedDTO.surname;
+//        this.currency = updatedDTO.currency;
+//        this.balance = updatedDTO.balance;
+//    }
+    
     public Long getId() {
         return id;
     }
@@ -101,8 +140,8 @@ public class SystemUser implements Serializable {
         return currency;
     }
 
-    public void setCurrency(String Currency) {
-        this.currency = Currency;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public Double getBalance() {

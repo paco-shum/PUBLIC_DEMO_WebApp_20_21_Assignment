@@ -34,7 +34,7 @@
 
         <h2>Notification</h2>
         <h:outputText value="You do not have pending transaction!" rendered="#{empty userBean.getPendingTransactionsList()}" />
-        <h:outputText value="You have pending transaction!" rendered="#{not empty userBean.getPendingTransactionsList()}" />
+        <h:outputText value="You have pending transaction, either a payment you have requested or someone else!" rendered="#{not empty userBean.getPendingTransactionsList()}" />
         <br/><br/>
         <h:dataTable value="#{userBean.getPendingTransactionsList()}" rendered="#{not empty userBean.getPendingTransactionsList()}" var="transaction">
             <h:column>    				

@@ -9,11 +9,10 @@ import com.student_186368.assignment1.ejb.PaymentService;
 import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
-import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named
 @RequestScoped
+@DeclareRoles("users")
 public class UserBean {
 
     @EJB

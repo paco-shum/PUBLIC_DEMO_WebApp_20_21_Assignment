@@ -4,11 +4,15 @@ C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assi
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\ejb\UserService.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\ejb\InitSingleton.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\jsf\ApprovePaymentBean.java
+C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\dto\PaymentTransactionDTO.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\jsf\UserBean.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\entity\PaymentTransaction.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\restful\RSIndex.java
+C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\ejb\PaymentServiceDAO.java
+C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\dto\SystemUserDTO.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\ejb\PaymentService.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\entity\SystemUserGroup.java
+C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\ejb\UserServiceDAO.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\jsf\RegistrationBean.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\restful\Exchange.java
 C:\Users\PacoShum\Google Drive\Sussex Year 3\2_Web Application and Services\Assignment1\186368\src\main\java\com\student_186368\assignment1\jsf\CheckExchangeRateBean.java

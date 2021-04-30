@@ -7,6 +7,7 @@ package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.ExchangeRate;
 import com.student_186368.assignment1.ejb.UserService;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named
 @RequestScoped
+@DeclareRoles("users")
 public class CheckExchangeRateBean {
     
     @EJB

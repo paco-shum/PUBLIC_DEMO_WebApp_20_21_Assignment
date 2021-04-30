@@ -12,6 +12,7 @@ import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
 import com.student_186368.assignment1.entity.SystemUserGroup;
 import java.util.List;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named
 @RequestScoped
+@DeclareRoles("admin")
 public class AdminBean {
     
     @EJB

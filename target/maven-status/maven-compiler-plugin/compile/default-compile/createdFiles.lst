@@ -1,6 +1,7 @@
 com\student_186368\assignment1\ejb\ExchangeRate.class
 com\student_186368\assignment1\entity\SystemUser.class
 com\student_186368\assignment1\entity\SystemUserGroup_.class
+com\student_186368\assignment1\ejb\PaymentServiceDAO.class
 com\student_186368\assignment1\jsf\AdminBean.class
 com\student_186368\assignment1\jsf\CheckExchangeRateBean.class
 com\student_186368\assignment1\entity\PaymentTransaction_.class
@@ -17,5 +18,6 @@ com\student_186368\assignment1\entity\SystemUser_.class
 com\student_186368\assignment1\jsf\ApprovePaymentBean.class
 com\student_186368\assignment1\jsf\LoginBean.class
 com\student_186368\assignment1\restful\RSExchange.class
+com\student_186368\assignment1\ejb\UserServiceDAO.class
 com\student_186368\assignment1\entity\SystemUserGroup.class
 com\student_186368\assignment1\entity\PaymentTransaction.class

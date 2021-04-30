@@ -5,6 +5,7 @@
  */
 package com.student_186368.assignment1.entity;
 
+//import com.student_186368.assignment1.dto.PaymentTransactionDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -69,6 +70,48 @@ public class PaymentTransaction implements Serializable {
         this.approved = approved;
     }
 
+//    // Method to get Transfer Object for Project data
+//    public PaymentTransactionDTO getPaymentTransactionDTO() {
+//      return createPaymentTransactionDTO();
+//    }
+//     
+//    // method to create a new Transfer Object and 
+//    // copy data from entity bean into the value 
+//    // object
+//    private PaymentTransactionDTO createPaymentTransactionDTO(){
+//        PaymentTransactionDTO dto = new PaymentTransactionDTO();
+//        dto.id = id;
+//        dto.sendUsername = sendUsername;
+//        dto.sendCurrency = sendCurrency;
+//        dto.sendCash = sendCash;
+//        dto.exchangeRate = exchangeRate;
+//        dto.receiveUsername = receiveUsername;
+//        dto.receiveCurrency = receiveCurrency;
+//        dto.receiveCash = receiveCash;
+//        dto.pending = pending;
+//        dto.approved = approved;
+//        return dto;
+//    }
+//    
+//    // method to set entity values with a Transfer Object
+//    public void setPaymentTransactionDTO(PaymentTransactionDTO updatedDTO) {
+//        mergePaymentTransactionDTO(updatedDTO);
+//    }
+//
+//    // method to merge values from the Transfer Object into
+//    // the entity bean attributes
+//    private void mergePaymentTransactionDTO(PaymentTransactionDTO updatedDTO) {
+//        this.id = updatedDTO.id;
+//        this.sendUsername = updatedDTO.sendUsername;
+//        this.sendCurrency = updatedDTO.sendCurrency;
+//        this.sendCash = updatedDTO.sendCash;
+//        this.exchangeRate = updatedDTO.exchangeRate;
+//        this.receiveUsername = updatedDTO.receiveUsername;
+//        this.receiveCurrency = updatedDTO.receiveCurrency;
+//        this.receiveCash = updatedDTO.receiveCash;
+//        this.pending = updatedDTO.pending;
+//        this.approved = updatedDTO.approved;
+//    }
     public Long getId() {
         return id;
     }

@@ -10,8 +10,10 @@ import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
 import java.util.List;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named
 @RequestScoped
+@DeclareRoles("users")
 public class ApprovePaymentBean {
     @EJB
     UserService usrSrv;
@@ -35,8 +38,12 @@ public class ApprovePaymentBean {
     
     public String toConfirmPay(){
         if (approved){
-            ps.approveTransaction(Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("paymentForm:paymentID")));
-            return "success";
+            if (ps.approveTransaction(Long.parseLong(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("paymentForm:paymentID")))){
+                return "success";
+            } else {
+                FacesContext.getCurrentInstance().addMessage("paymentForm:paymentID", new FacesMessage("Error: You have insufficient fund!"));
+                return null;
+            }
         }
         return null;
     }
