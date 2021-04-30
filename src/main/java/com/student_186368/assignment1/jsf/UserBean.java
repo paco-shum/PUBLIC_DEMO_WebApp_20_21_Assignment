@@ -6,6 +6,7 @@
 package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.PaymentService;
+import com.student_186368.assignment1.ejb.TimeServiceEJB;
 import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
@@ -30,6 +31,8 @@ public class UserBean {
     UserService usrSrv;
     @EJB
     PaymentService ps;
+    @EJB
+    TimeServiceEJB ts;
     
 
     public UserBean() {
@@ -63,6 +66,10 @@ public class UserBean {
     public Double getBalance() {
         SystemUser sender = usrSrv.getUser(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteUser());
         return usrSrv.getUser(sender.getUsername()).getBalance();
+    }
+    
+    public long getTime() {
+        return ts.getTime();
     }
 
     public List<PaymentTransaction> getUserTransactions(String username) {
