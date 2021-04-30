@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 @Named
 @RequestScoped
 /**
- *
+ * For user logout
  * @author 186368
  */
 public class LoginBean implements Serializable {

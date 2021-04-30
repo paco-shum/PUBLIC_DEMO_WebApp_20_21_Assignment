@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
- *
+ * Admin Bean to handle all Admin ops
  * @author 186368
  */
 @Named

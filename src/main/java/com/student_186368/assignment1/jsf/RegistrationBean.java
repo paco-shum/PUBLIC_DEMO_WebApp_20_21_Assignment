@@ -9,7 +9,7 @@ import javax.inject.Named;
 import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
- *
+ * for new user registration
  * @author 186368
  */
 @Named

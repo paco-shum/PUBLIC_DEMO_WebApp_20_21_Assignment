@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
- *
+ *ApprovePaymentBean Bean to handle ApprovePayment page
  * @author 186368
  */
 @Named

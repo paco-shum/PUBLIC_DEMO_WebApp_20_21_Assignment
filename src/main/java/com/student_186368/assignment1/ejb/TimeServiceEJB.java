@@ -14,7 +14,7 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
 /**
- *
+ *Time client to get time
  * @author 186368
  */
 @Stateless

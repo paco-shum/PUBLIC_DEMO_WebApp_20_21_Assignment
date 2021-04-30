@@ -14,7 +14,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
+ * ExchangeRate for getting ExchangeRate over RESTful
  * @author 186368
  */
 @Stateless

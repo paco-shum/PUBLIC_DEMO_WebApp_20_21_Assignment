@@ -41,21 +41,7 @@ public class InitSingleton {
         }else {
             System.out.println("Admin account detected...skipping");
         }
-        
-        System.out.println("At startup: checking if an user1 account is in the datbase");
-        if (!checkUserExist("user1")){
-            System.out.println("Missing user1 account...create one now");
-            register("user1", "p1", "Tom", "Addnerson", "users");
-        }else {
-            System.out.println("user1 account detected...skipping");
-        }
-        System.out.println("At startup: checking if an user2 account is in the datbase");
-        if (!checkUserExist("user2")){
-            System.out.println("Missing user2 account...create one now");
-            register("user2", "p2", "Jesi", "Reynolds", "users");
-        }else {
-            System.out.println("user2 account detected...skipping");
-        }
+       
     }
     
     private void register(String username, String userpassword, String name, String surname, String perm) {

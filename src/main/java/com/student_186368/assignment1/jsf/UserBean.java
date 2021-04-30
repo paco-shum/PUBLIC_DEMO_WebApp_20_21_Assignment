@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
- *
+ * anything about user to get from here
  * @author 186368
  */
 @Named
@@ -69,7 +69,9 @@ public class UserBean {
     }
     
     public long getTime() {
-        return ts.getTime();
+        //uncomment for time service
+        //return ts.getTime();
+        return 0;
     }
 
     public List<PaymentTransaction> getUserTransactions(String username) {

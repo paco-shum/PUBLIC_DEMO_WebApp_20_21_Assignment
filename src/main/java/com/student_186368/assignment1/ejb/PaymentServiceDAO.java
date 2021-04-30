@@ -25,5 +25,7 @@ public interface PaymentServiceDAO {
     public void rejectTransaction(Long id);
     public void createPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash);
     public void requestPayment (String sendUsername, String sendCurrency, Double sendCash, Double exchangeRate, String receiveUsername, String receiveCurrency, Double receiveCash);
+//    public void createPayment (PaymentTransactionDTO paymentTransactionDTO);
+//    public void requestPayment (PaymentTransactionDTO paymentTransactionDTO);
     public Boolean checkUserBalance(String username, Double payment);
 }

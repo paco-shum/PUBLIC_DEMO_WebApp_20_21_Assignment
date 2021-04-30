@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
- *
+ * for make / request a payment page
  * @author 186368
  */
 @Named

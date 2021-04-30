@@ -10,11 +10,22 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ws.rs.core.Application;
+import org.apache.thrift.server.TServer.Args;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.transport.TServerSocket;
-import org.apache.thrift.server.TServer.Args;
+import org.apache.thrift.protocol.TBinaryProtocol.Factory;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.transport.TServerSocket;
+import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.server.TServer;
+import org.apache.thrift.server.TServer.Args;
+import org.apache.thrift.server.TSimpleServer;
 
 @Startup
 @Singleton 
@@ -24,53 +35,21 @@ import org.apache.thrift.transport.TServerTransport;
  */
 public class TimeServer {
     
-    public static TimeServerHandler handler;
-    public static TimeService.Processor processor;
-    public static TServerTransport serverTransport;
-    public static TServer server;
-    
-    
-//    private void main(String[] args) {
-//        try {
-//            handler = new TimeServerHandler();
-//            processor = new TimeService.Processor(handler);
-//            
-//            Runnable simple = new Runnable() {
-//                @Override
-//                public void run() {
-//                    simple(processor);
-//                }
-//            };
-//
-//            new Thread(simple).start();
-//            System.in.read();
-//            server.stop();
-//            
-//        } catch (Exception x) {
-//            System.err.println(x);
-//        }
-//    }
-    
-    public static void simple(TimeService.Processor processor) {
-        try {
-            serverTransport = new TServerSocket(10001);
-            //server = new TSimpleServer(new Args(serverTransport).processor(processor));
-
-            System.out.println("Starting the simple server (time server) in Thread " + Thread.currentThread().getId());
-            server.serve();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-    
     public void TimeServer(){
-        handler = new TimeServerHandler();
         try {
-            serverTransport = new TServerSocket(10001);
-            //server = new TSimpleServer(new Args(serverTransport).processor(processor));
-
-            System.out.println("Starting the simple server (time server) in Thread " + Thread.currentThread().getId());
+            TServerSocket serverTransport = new TServerSocket(10001);
+            //serverTransport.listen();
+            TimeServerHandler handler = new TimeServerHandler();
+            TimeService.Processor processor = new TimeService.Processor(new TimeServerHandler());
+            //Factory protFactory = new TBinaryProtocol.Factory(true, true);
+//            TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
+//            
+            TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
+                    
+            System.out.println("Starting server on port 10001 ...");
             server.serve();
+            //server.stop();
+            System.out.println("Starting the simple server (time server) in Thread ");
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -79,7 +58,7 @@ public class TimeServer {
     
     @PostConstruct
     public void init() {
-        
+        //TimeServer();
         System.out.println("Singleton Object for this Time Server Service has been created!!");
     }
 

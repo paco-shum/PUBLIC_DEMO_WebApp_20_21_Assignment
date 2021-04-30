@@ -17,7 +17,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ *User DB handle 
  * @author 186368
  */
 @Stateless
