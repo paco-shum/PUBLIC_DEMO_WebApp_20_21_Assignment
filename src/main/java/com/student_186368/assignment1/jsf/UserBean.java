@@ -5,9 +5,8 @@
  */
 package com.student_186368.assignment1.jsf;
 
-import com.student_186368.assignment1.ejb.PaymentService;
+import com.student_186368.assignment1.ejb.PaymentServiceDAO;
 import com.student_186368.assignment1.ejb.TimeServiceEJB;
-import com.student_186368.assignment1.ejb.UserService;
 import com.student_186368.assignment1.entity.PaymentTransaction;
 import com.student_186368.assignment1.entity.SystemUser;
 import java.util.List;
@@ -17,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
  *
@@ -28,9 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 public class UserBean {
 
     @EJB
-    UserService usrSrv;
+    UserServiceDAO usrSrv;
     @EJB
-    PaymentService ps;
+    PaymentServiceDAO ps;
     @EJB
     TimeServiceEJB ts;
     

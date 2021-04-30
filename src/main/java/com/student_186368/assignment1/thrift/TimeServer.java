@@ -44,8 +44,7 @@ public class TimeServer {
 //
 //            new Thread(simple).start();
 //            System.in.read();
-//            server.serve();
-//            //server.stop();
+//            server.stop();
 //            
 //        } catch (Exception x) {
 //            System.err.println(x);
@@ -55,40 +54,32 @@ public class TimeServer {
     public static void simple(TimeService.Processor processor) {
         try {
             serverTransport = new TServerSocket(10001);
-            server = new TSimpleServer(new Args(serverTransport).processor(processor));
+            //server = new TSimpleServer(new Args(serverTransport).processor(processor));
 
-            System.out.println("Starting the simple server in Thread " + Thread.currentThread().getId());
+            System.out.println("Starting the simple server (time server) in Thread " + Thread.currentThread().getId());
             server.serve();
         } catch (Exception e) {
             System.err.println(e);
         }
     }
     
-//    public void TimeServer(){
-//        handler = new TimeServerHandler();
-//        
-//    }
+    public void TimeServer(){
+        handler = new TimeServerHandler();
+        try {
+            serverTransport = new TServerSocket(10001);
+            //server = new TSimpleServer(new Args(serverTransport).processor(processor));
+
+            System.out.println("Starting the simple server (time server) in Thread " + Thread.currentThread().getId());
+            server.serve();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
+    
     @PostConstruct
     public void init() {
-        try {
-            handler = new TimeServerHandler();
-            processor = new TimeService.Processor(handler);
-            
-            Runnable simple = new Runnable() {
-                @Override
-                public void run() {
-                    simple(processor);
-                }
-            };
-
-            new Thread(simple).start();
-            System.in.read();
-            server.serve();
-            //server.stop();
-            
-        } catch (Exception x) {
-            System.err.println(x);
-        }
+        
         System.out.println("Singleton Object for this Time Server Service has been created!!");
     }
 

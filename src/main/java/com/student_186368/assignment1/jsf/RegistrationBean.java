@@ -1,12 +1,12 @@
 package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.ExchangeRate;
-import com.student_186368.assignment1.ejb.UserService;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.inject.Named;
 public class RegistrationBean {
 
     @EJB
-    UserService usrSrv;
+    UserServiceDAO usrSrv;
     @EJB
     ExchangeRate er;
     String username;
@@ -46,11 +46,11 @@ public class RegistrationBean {
     }
     
     
-    public UserService getUsrSrv() {
+    public UserServiceDAO getUsrSrv() {
         return usrSrv;
     }
 
-    public void setUsrSrv(UserService usrSrv) {
+    public void setUsrSrv(UserServiceDAO usrSrv) {
         this.usrSrv = usrSrv;
     }
 

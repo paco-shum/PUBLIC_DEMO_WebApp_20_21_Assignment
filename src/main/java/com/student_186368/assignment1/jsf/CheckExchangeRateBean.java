@@ -6,13 +6,13 @@
 package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.ExchangeRate;
-import com.student_186368.assignment1.ejb.UserService;
 import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
  *
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CheckExchangeRateBean {
     
     @EJB
-    UserService usrSrv;
+    UserServiceDAO usrSrv;
     @EJB
     ExchangeRate er;
     Double GBP;

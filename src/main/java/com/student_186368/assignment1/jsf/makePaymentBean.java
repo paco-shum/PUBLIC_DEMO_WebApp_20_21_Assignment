@@ -6,8 +6,7 @@
 package com.student_186368.assignment1.jsf;
 
 import com.student_186368.assignment1.ejb.ExchangeRate;
-import com.student_186368.assignment1.ejb.PaymentService;
-import com.student_186368.assignment1.ejb.UserService;
+import com.student_186368.assignment1.ejb.PaymentServiceDAO;
 import com.student_186368.assignment1.entity.SystemUser;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import com.student_186368.assignment1.ejb.UserServiceDAO;
 
 /**
  *
@@ -29,10 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 public class MakePaymentBean {
     
     @EJB
-    UserService usrSrv;
+    UserServiceDAO usrSrv;
     
     @EJB
-    PaymentService ps;
+    PaymentServiceDAO ps;
     
     @EJB
     ExchangeRate exchangeRate;
